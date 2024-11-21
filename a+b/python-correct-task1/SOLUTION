@@ -6,4 +6,5 @@
 #c_solution(src='main.c')
 #cxx_solution(src='main.cc')
 #java_solution(src='Main.java', encoding='UTF-8', mainclass='Main')
-script_solution(src='main.py')
+script_solution(src='main.py', challenge_cases=['all_*.in'])
+expected_score(10)
