@@ -3,7 +3,7 @@
 import re
 import sys
 
-MAX = 1000000000
+MAX = 1000000000000000000
 
 
 def main():
