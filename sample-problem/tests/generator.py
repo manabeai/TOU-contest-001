@@ -4,7 +4,7 @@ import random
 
 import six
 
-MAX = 1000000000
+MAX = 100000000000000000
 seq = 0
 
 
