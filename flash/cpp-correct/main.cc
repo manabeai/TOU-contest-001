@@ -12,7 +12,7 @@ void solve() {
     cin >> h >> n;
     vector<ll> A(n);
     for (ll i = 0; i < n; ++i) cin >> A[i];
-
+    sort(A.begin(), A.end());
 
     ll ans = tousa(1, h, 2) * n;
 
