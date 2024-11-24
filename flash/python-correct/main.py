@@ -4,7 +4,8 @@ def tousa(a, n, d):
 
 def solve():
     h, n = map(int, input().split())
-    A = list(map(int, input().split()))
+    A = sorted(list(map(int, input().split())))
+    
 
     ans = tousa(1, h, 2) * n
 
