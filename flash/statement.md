@@ -8,7 +8,8 @@ $\lparen$ $1$ , $A_i$ $\rparen$ に置かれたライトの発する光はそこ
 
 
 ## 制約
-- $1 \leq H, N \leq 10^{6}$
+- $1 \leq H \leq 10^{12}$
+- $1 \leq N \leq 10^6$
 - $H \leq A_i \leq 10^{18}$
 - $A_i \neq A_j \lparen i \neq j \rparen$
 - 入力はすべて整数

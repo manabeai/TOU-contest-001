@@ -3,7 +3,7 @@
 import re
 import sys
 
-H_MAX = 10 ** 6
+H_MAX = 10 ** 12
 H_MIN = 1
 
 N_MAX = 10 ** 6
