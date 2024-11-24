@@ -9,7 +9,8 @@ Aoki君はこれから $\lparen$$1$,$A_1$$\rparen$,$\lparen$$1$,$A_2$$\rparen$$\
 ## 制約
 - $1 \leq H \leq 10^{12}$
 - $1 \leq N \leq 10^6$
-- $H \leq A_i \leq 10^{12}$
+- $H \leq A_i \leq 10^{18}$
+- $A_i \neq A_j \lparen i \neq j \rparen$
 - 入力はすべて整数
 
 ## 入力
