@@ -56,10 +56,10 @@ G R R R Y Y Y Y R G G G
 ### 入力
 ```
 9 2
-R G B R G B R G B
+R G B B G R R G B
 ```
 
 ### 出力
 ```
-9
+3
 ```
