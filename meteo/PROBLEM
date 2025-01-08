@@ -6,11 +6,11 @@
 ##   id: The problem ID (typically starts from A) used to order problems.
 ##   time_limit: The time limit of this problem in seconds.
 pid = 'X'
-problem_name = "A+B Problem"
+problem_name = "meteo"
 problem(title = pid + ": " + problem_name,
         # wiki_name = 'A+B',
         # assignees = 'assignee',
         # need_custom_judge = False,
         id = pid,
-        time_limit = 1.0,
+        time_limit = 2.0,
         )
