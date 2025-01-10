@@ -16,7 +16,8 @@ void Generate() {
             uniform_int_distribution<int> dist_char(0, 25);
 
             int n = dist_n(gen);
-            file << n << endl;
+            int m = dist_n(gen);
+            file << n << " " << m << endl;
 
             for (int i = 0; i < n; i++) {
                 char c = 'A' + dist_char(gen);

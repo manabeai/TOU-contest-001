@@ -18,7 +18,7 @@ int main() {
 		for (int i = 0; i < N; i++) {
 			char C;
 			cin >> C;
-			if (C < 'A' && C > 'Z') {
+			if (!isupper(C)) {
 				throw runtime_error("Char Out Of Range");
 			}
 		}
