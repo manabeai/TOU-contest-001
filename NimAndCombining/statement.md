@@ -19,7 +19,7 @@
 
 ## 制約
 
-- $1 \leqq N \leqq 5 \times 10^5$
+- $1 \leqq N \leqq 4 \times 10^5$
 - $1 \leqq A_i \leqq 10^6$
 - 入力はすべて整数
 
