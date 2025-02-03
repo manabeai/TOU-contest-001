@@ -46,12 +46,14 @@ int main(){
 	ll mx=0;
 	
 	rep(i,n){
+		if(a[i]==xr)mx=max(mx,a[i]+1);
 		rep(j,i){
 			if(min(a[i],a[j])<=(xr^a[i]^a[j])){
 				mx=max(mx,a[i]+a[j]+1-(xr^a[i]^a[j]));
 			}
 		}
 	}
+	
 	cout<<"Talk"<<endl;
 	cout<<sum-mx+1<<endl;
 	return 0;
