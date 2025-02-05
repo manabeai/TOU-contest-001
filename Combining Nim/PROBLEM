@@ -12,5 +12,5 @@ problem(title = pid + ": " + problem_name,
         # assignees = 'assignee',
         # need_custom_judge = False,
         id = pid,
-        time_limit = 1000.0,
+        time_limit = 4.0,
         )
