@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 
-#include "../../../common/testlib.h"
+#include "testlib.h"
 using namespace std;
 #define rep(i,n) for (int i=0;i<n;i++)
 #define loop(i,m,n) for(int i=m;i<=n;i++)
@@ -40,7 +40,7 @@ int main(int argc, char** argv)
 		rep(d,4){
 			bool f=true;
 			loop(k,1,a[i][j]){
-				if(a[i][j]!=a[i+dx[d]*k][j+dy[d]*k+n*k]){
+				if(a[i][j]!=a[(i+dx[d]*k)%n][(j+dy[d]*k+n*k)%n]){
 					f=false;
 					break;
 				}

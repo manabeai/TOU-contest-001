@@ -24,7 +24,7 @@ void make(ll num,string name,ll MIN_N,ll MAX_N){
 int main(){
 	make(1,"sample_",4,4);
 	make(30,"random_",14,996);
-	//make(1,"hand1_",1,1);
+	make(1,"hand1_",1,1);
 	make(1,"hand2_",2,2);
 	make(1,"hand3_",3,3);
 	make(1,"hand4_",5,5);
