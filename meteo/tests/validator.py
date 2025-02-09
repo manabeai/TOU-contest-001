@@ -1,18 +1,16 @@
 #!/usr/bin/python
 
-import re
-import sys
+import random
 
-MAX = 1000000000000000000
+def generate_test_case():
+    H = random.randint(1, 10)
+    W = random.randint(1, 10)
+    
+    print(f"{H} {W}")
+    
+    for i in range(H):
+        row = [str(random.randint(0, 100)) for _ in range(W)]
+        print(" ".join(row))
 
-
-def main():
-    m = re.match(r'^(\d+) (\d+)\n$', sys.stdin.read())
-    assert m, 'Does not match with regexp'
-    a, b = map(int, m.groups())
-    assert 0 <= a <= MAX, 'a out of range: %d' % a
-    assert 0 <= b <= MAX, 'a out of range: %d' % b
-
-
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+    generate_test_case()
