@@ -9,7 +9,7 @@
 ## 制約
 
 - $2 \le N \le 2 \times 10^5$
-- $1 \le M \le \frac{N(N - 1)}{2}$
+- $1 \le M \le \min(\frac{N(N - 1)}{2}, 2 \times 10^5)$
 - $1 \le A_i \le 10^9$
 - $1 \le u, v, X \le N$
 - $u \ne v$
