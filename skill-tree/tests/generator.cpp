@@ -1,121 +1,211 @@
-#include <cstdint>
-#include <cstdlib>
+#include <cassert>
 #include <fstream>
 #include <set>
 #include <vector>
 using namespace std;
-#define int long long
+using ll = long long;
+#define rep(i, n) for (ll i = 0; i < (n); i++)
+
+#include "testlib.h"
 
 void generateRandom(int seq);
-void generateMaxCase(int seq);
+void generateHand1();
+void generateHand2();
+void generateHand2Small();
+void generateStarGraph(int seq);
 
-int32_t main() {
+int main(int argc, char* argv[]) {
+	registerGen(argc, argv, 1);
     for (int i = 1; i <= 20; i++) {
         generateRandom(i);
     }
-
-    for (int i = 1; i <= 5; i++) {
-        generateMaxCase(i);
+	generateHand1();
+	generateHand2();
+	generateHand2Small();
+    for (int i = 1; i <= 10; i++) {
+		generateStarGraph(i);
     }
 }
 
-const int MAX_N = 2 * 1e5;
-const int MAX_M = 2 * 1e5;
-const int MAX_Ai = 1e9;
+const ll MAX_N = 2 * 1e5;
+const ll MIN_N = 2;
+const ll MAX_M = 2 * 1e5;
+const ll MIN_M = 1;
+const ll MAX_Ai = 1e9;
+const ll MIN_Ai = 1;
 void generateRandom(int seq) {
     ofstream file = ofstream("random_" + to_string(seq) + ".in");
 
-    int n = rand() % (MAX_N - 1) + 2;
-    int m = rand() % (min(MAX_M, n * (n - 1) / 2)) + 1;
-    int x = rand() % n + 1;
+    ll n = rnd.next(MIN_N, MAX_N);
+    ll x = rnd.next(1LL, n);
 
-    file << n << " " << m << " " << x << endl;
-
-    vector<int> a(n);
-    for (int i = 0; i < n; i++) {
-        a[i] = rand() % MAX_Ai + 1;
-    }
-
-    for (int i = 0; i < n; i++) {
-        file << a[i] << " ";
-    }
-    file << endl;
+    vector<ll> a(n);
+    rep(i, n) a[i] = rnd.next(MIN_Ai, MAX_Ai);
 
     // ランダムに頂点を並び替える
-    vector<int> randomVertex(n);
-    for (int i = 0; i < n; i++) {
-        randomVertex[i] = i;
-    }
-    for (int i = 0; i < n; i++) {
-        int j = rand() % n;
-        swap(randomVertex[i], randomVertex[j]);
+    vector<ll> randomVertex(n);
+	rep(i, n) randomVertex[i] = i + 1;
+	shuffle(randomVertex.begin(), randomVertex.end());
+
+	ll m = 0;
+    set<pair<ll, ll>> used;
+    for (int i = 0; i < MAX_M; i++) {
+        ll l = rnd.next(0LL, n - 2);
+        ll r = rnd.next(l + 1, n - 1);
+        ll u = randomVertex[l];
+        ll v = randomVertex[r];
+
+		if (used.count({u, v})) continue;
+		used.insert({u, v});
+		m++;
+		if (min(MAX_M, n * (n - 1) / 2) == m) break;
     }
 
-    set<pair<int, int>> used;
-    for (int i = 0; i < m; i++) {
-        int l = rand() % n;
-        int r = rand() % (n - l) + l;
-        int u = randomVertex[l];
-        int v = randomVertex[r];
-        if (used.count({u, v})) {
-            i--;
-            continue;
-        }
-        if (u == v) {
-            i--;
-            continue;
-        }
+	file << n << " " << m << " " << x << "\n";
+	rep(i, n) {
+		file << a[i];
+		if (i != n - 1) file << " ";
+	}
+	file << "\n";
 
-        used.insert({u, v});
-        file << u + 1 << " " << v + 1 << endl;
-    }
+	vector<pair<ll, ll>> edges;
+	for (auto [u, v] : used) {
+		edges.push_back({u, v});
+	}
+	shuffle(edges.begin(), edges.end());
+	for (auto [u, v] : edges) {
+		file << u << " " << v << "\n";
+	}
+
+	cout << flush;
 }
 
-void generateMaxCase(int seq) {
-    ofstream file = ofstream("max_" + to_string(seq) + ".in");
+void generateHand1() {
+	ofstream file = ofstream("hand1.in");
 
-    int n = MAX_N;
-    int m = MAX_M;
-    int x = rand() % n + 1;
+	ll n = 1e5;
+	vector<ll> vertex(n);
+	rep(i, n) vertex[i] = i + 1;
 
-    file << n << " " << m << " " << x << endl;
+	ll m = 2 * 1e5 - 4;
+	ll x = n;
+	vector<ll> a(n);
+	rep(i, n) a[i] = 1;
 
-    vector<int> a(n);
-    for (int i = 0; i < n; i++) {
-        a[i] = MAX_Ai;
-    }
+	vector<pair<ll, ll>> edges;
+	edges.push_back({n - 1, n});
+	for (ll i = n - 2; i >= 2; i--) {
+		edges.push_back({i, i + 1});
+	}
+	for (ll i = n - 1; i >= 2; i--) {
+		edges.push_back({0, i});
+	}
 
-    for (int i = 0; i < n; i++) {
-        file << a[i] << " ";
-    }
-    file << endl;
+	assert(edges.size() == m);
 
-    // ランダムに頂点を並び替える
-    vector<int> randomVertex(n);
-    for (int i = 0; i < n; i++) {
-        randomVertex[i] = i;
-    }
-    for (int i = 0; i < n; i++) {
-        int j = rand() % n;
-        swap(randomVertex[i], randomVertex[j]);
-    }
+	file << n << " " << m << " " << x << "\n";
 
-    set<pair<int, int>> used;
-    for (int i = 0; i < m; i++) {
-        int l = rand() % n;
-        int r = rand() % (n - l) + l;
-        int u = randomVertex[l];
-        int v = randomVertex[r];
-        if (used.count({u, v})) {
-            i--;
-            continue;
-        }
-        if (u == v) {
-            i--;
-            continue;
-        }
+	rep(i, n) {
+		file << a[i];
+		if (i != n - 1) file << " ";
+	}
+	file << "\n";
 
-        used.insert({u, v});
-        file << u + 1 << " " << v + 1 << endl;
-    }
+	for (auto [u, v] : edges) {
+		file << u << " " << v << "\n";
+	}
+	cout << flush;
+}
+void generateHand2() {
+	ofstream file = ofstream("hand2.in");
+
+	ll n = MAX_N;
+	ll m = n - 1;
+	ll x = n;
+	vector<ll> a(n);
+	rep(i, n) a[i] = 1;
+
+	vector<pair<ll, ll>> edges;
+	for (ll i = 1; i < n; i++) {
+		edges.push_back({i, i + 1});
+	}
+
+	assert(edges.size() == m);
+
+	file << n << " " << m << " " << x << "\n";
+
+	rep(i, n) {
+		file << a[i];
+		if (i != n - 1) file << " ";
+	}
+	file << "\n";
+
+	for (auto [u, v] : edges) {
+		file << u << " " << v << "\n";
+	}
+	cout << flush;
+}
+void generateHand2Small() {
+	ofstream file = ofstream("hand2_small.in");
+
+	ll n = 5;
+	ll m = n - 1;
+	ll x = n;
+	vector<ll> a(n);
+	rep(i, n) a[i] = 1;
+
+	vector<pair<ll, ll>> edges;
+	for (ll i = 1; i < n; i++) {
+		edges.push_back({i, i + 1});
+	}
+
+	assert(edges.size() == m);
+
+	file << n << " " << m << " " << x << "\n";
+
+	rep(i, n) {
+		file << a[i];
+		if (i != n - 1) file << " ";
+	}
+	file << "\n";
+
+	for (auto [u, v] : edges) {
+		file << u << " " << v << "\n";
+	}
+	cout << flush;
+}
+
+void generateStarGraph(int seq) {
+	ofstream file = ofstream("star_" + to_string(seq) + ".in");
+
+	ll n = MAX_N;
+	ll m = n - 1;
+	ll x = rnd.next(1LL, n);
+
+	vector<ll> vertex(n);
+	rep(i, n) vertex[i] = i + 1;
+	shuffle(vertex.begin(), vertex.end());
+
+	vector<ll> a(n);
+	rep(i, n) a[i] = rnd.next(MIN_Ai, MAX_Ai);
+	
+	vector<pair<ll, ll>> edges;
+	for (ll i = 1; i < n; i++) {
+		edges.push_back({vertex[0], vertex[i]});
+	}
+
+	assert(edges.size() == m);
+
+	file << n << " " << m << " " << x << "\n";
+
+	rep(i, n) {
+		file << a[i];
+		if (i != n - 1) file << " ";
+	}
+	file << "\n";
+
+	for (auto [u, v] : edges) {
+		file << u << " " << v << "\n";
+	}
+	cout << flush;
 }
