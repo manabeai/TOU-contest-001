@@ -11,7 +11,6 @@ using ll = long long;
 void generateRandom(int seq);
 void generateHand1();
 void generateHand2();
-void generateHand2Small();
 void generateStarGraph(int seq);
 
 int main(int argc, char* argv[]) {
@@ -21,7 +20,6 @@ int main(int argc, char* argv[]) {
     }
 	generateHand1();
 	generateHand2();
-	generateHand2Small();
     for (int i = 1; i <= 10; i++) {
 		generateStarGraph(i);
     }
@@ -120,35 +118,6 @@ void generateHand2() {
 	ofstream file = ofstream("hand2.in");
 
 	ll n = MAX_N;
-	ll m = n - 1;
-	ll x = n;
-	vector<ll> a(n);
-	rep(i, n) a[i] = 1;
-
-	vector<pair<ll, ll>> edges;
-	for (ll i = 1; i < n; i++) {
-		edges.push_back({i, i + 1});
-	}
-
-	assert(edges.size() == m);
-
-	file << n << " " << m << " " << x << "\n";
-
-	rep(i, n) {
-		file << a[i];
-		if (i != n - 1) file << " ";
-	}
-	file << "\n";
-
-	for (auto [u, v] : edges) {
-		file << u << " " << v << "\n";
-	}
-	cout << flush;
-}
-void generateHand2Small() {
-	ofstream file = ofstream("hand2_small.in");
-
-	ll n = 5;
 	ll m = n - 1;
 	ll x = n;
 	vector<ll> a(n);
