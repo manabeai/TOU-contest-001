@@ -15,13 +15,13 @@ int main()
         else {
             if (st.top().first == c) {
                 st.top().second++;
-                if (st.top().second == M) {
-                    st.pop();
-                }
             }
             else {
                 st.push({ c,1 });
             }
+        }
+        if (st.top().second == M) {
+            st.pop();
         }
     }
     int ans = 0;
