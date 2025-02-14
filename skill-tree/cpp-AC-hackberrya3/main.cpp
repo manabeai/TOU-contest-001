@@ -59,13 +59,13 @@ ostream& operator<<(ostream& os, const vector<vector<T>>& vv) {
 template <typename T>
 istream& operator>>(istream& is, vector<T>& v) {
 	assert(v.size() > 0);
-	for (int i = 0; i < v.size(); ++i) is >> v[i];
+	for (size_t i = 0; i < v.size(); ++i) is >> v[i];
 	return is;
 }
 template <typename T>
 istream& operator>>(istream& is, vector<vector<T>>& vv) {
 	assert(vv.size() > 0);
-	for (int i = 0; i < vv.size(); ++i) is >> vv[i];
+	for (size_t i = 0; i < vv.size(); ++i) is >> vv[i];
 	return is;
 }
 
@@ -93,10 +93,16 @@ struct phash {
 
 
 int solve() {
-	ll n, m, x; cin >> n >> m >> x;
+	ll n, m, k, x; cin >> n >> m >> k >> x;
 	--x;
 	vll a(n);
-	rep(i, n) cin >> a[i];
+	cin >> a;
+	unordered_set<ll> starts;
+	rep(i, k) {
+		ll s; cin >> s;
+		--s;
+		starts.insert(s);
+	}
 	vvll g(n, vll());
 	rep(i, m) {
 		ll u, v; cin >> u >> v;
@@ -110,6 +116,10 @@ int solve() {
 	vector<pair<ll, ll>> dp(n, {INF, -1});
 	auto dfs = [&](auto self, ll u) -> ll {
 		if (dp[u].first != INF) {
+			return dp[u].first;
+		}
+		if (starts.count(u)) {
+			dp[u] = {a[u], -1};
 			return dp[u].first;
 		}
 
@@ -126,11 +136,6 @@ int solve() {
 				minCost = cost;
 				best = v;
 			}
-		}
-
-		if (minCost == INF) {
-			dp[u] = {a[u], best};
-			return dp[u].first;
 		}
 
 		dp[u] = {minCost + a[u], best};
