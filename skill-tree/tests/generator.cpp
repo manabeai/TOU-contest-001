@@ -1,6 +1,8 @@
 #include <cassert>
 #include <fstream>
+#include <queue>
 #include <set>
+#include <unordered_set>
 #include <vector>
 using namespace std;
 using ll = long long;
@@ -35,6 +37,7 @@ void generateRandom(int seq) {
     ofstream file = ofstream("random_" + to_string(seq) + ".in");
 
     ll n = rnd.next(MIN_N, MAX_N);
+	ll k = rnd.next(1LL, n);
     ll x = rnd.next(1LL, n);
 
     vector<ll> a(n);
@@ -44,6 +47,14 @@ void generateRandom(int seq) {
     vector<ll> randomVertex(n);
 	rep(i, n) randomVertex[i] = i + 1;
 	shuffle(randomVertex.begin(), randomVertex.end());
+
+	vector<ll> s;
+	queue<ll> s_q;
+	rep(i, n) s_q.push(randomVertex[i]);
+	rep(i, k) {
+		s.push_back(s_q.front());
+		s_q.pop();
+	}
 
 	ll m = 0;
     set<pair<ll, ll>> used;
@@ -59,10 +70,16 @@ void generateRandom(int seq) {
 		if (min(MAX_M, n * (n - 1) / 2) == m) break;
     }
 
-	file << n << " " << m << " " << x << "\n";
+	file << n << " " << m << " " << k << " " << x << "\n";
 	rep(i, n) {
 		file << a[i];
 		if (i != n - 1) file << " ";
+	}
+	file << "\n";
+
+	rep(i, k) {
+		file << s[i];
+		if (i != k - 1) file << " ";
 	}
 	file << "\n";
 
@@ -101,13 +118,15 @@ void generateHand1() {
 
 	assert(edges.size() == m);
 
-	file << n << " " << m << " " << x << "\n";
+	file << n << " " << m << " " << 1 << " " << x << "\n";
 
 	rep(i, n) {
 		file << a[i];
 		if (i != n - 1) file << " ";
 	}
 	file << "\n";
+
+	file << 1 << "\n";
 
 	for (auto [u, v] : edges) {
 		file << u << " " << v << "\n";
@@ -130,13 +149,15 @@ void generateHand2() {
 
 	assert(edges.size() == m);
 
-	file << n << " " << m << " " << x << "\n";
+	file << n << " " << m << " " << 1 << " " << x << "\n";
 
 	rep(i, n) {
 		file << a[i];
 		if (i != n - 1) file << " ";
 	}
 	file << "\n";
+
+	file << 1 << "\n";
 
 	for (auto [u, v] : edges) {
 		file << u << " " << v << "\n";
@@ -158,18 +179,27 @@ void generateStarGraph(int seq) {
 	vector<ll> a(n);
 	rep(i, n) a[i] = rnd.next(MIN_Ai, MAX_Ai);
 	
+	set<ll> outers; // 外周の頂点
 	vector<pair<ll, ll>> edges;
 	for (ll i = 1; i < n; i++) {
 		edges.push_back({vertex[0], vertex[i]});
+		outers.insert(vertex[i]);
 	}
+	outers.erase(x); // xは習得済みにならないように
 
 	assert(edges.size() == m);
 
-	file << n << " " << m << " " << x << "\n";
+	file << n << " " << m << " " << outers.size() << " " << x << "\n";
 
 	rep(i, n) {
 		file << a[i];
 		if (i != n - 1) file << " ";
+	}
+	file << "\n";
+
+	for (auto v : outers) {
+		file << v;
+		if (v != *outers.rbegin()) file << " ";
 	}
 	file << "\n";
 
