@@ -38,7 +38,7 @@ void generateRandom(int seq) {
 
     ll n = rnd.next(MIN_N, MAX_N);
 	ll k = rnd.next(1LL, n);
-    ll x = rnd.next(1LL, n);
+	ll x = rnd.next(1LL, n);
 
     vector<ll> a(n);
     rep(i, n) a[i] = rnd.next(MIN_Ai, MAX_Ai);
@@ -48,14 +48,7 @@ void generateRandom(int seq) {
 	rep(i, n) randomVertex[i] = i + 1;
 	shuffle(randomVertex.begin(), randomVertex.end());
 
-	vector<ll> s;
-	queue<ll> s_q;
-	rep(i, n) s_q.push(randomVertex[i]);
-	rep(i, k) {
-		s.push_back(s_q.front());
-		s_q.pop();
-	}
-
+	// ランダムに辺を追加(多重辺、閉路なし)
 	ll m = 0;
     set<pair<ll, ll>> used;
     for (int i = 0; i < MAX_M; i++) {
@@ -70,6 +63,49 @@ void generateRandom(int seq) {
 		if (min(MAX_M, n * (n - 1) / 2) == m) break;
     }
 
+	// xと同じ連結成分の中に1つ以上sが存在するようにする
+	vector<vector<ll>> g(n, vector<ll>());
+	set<ll> components;
+	for (auto [u, v] : used) {
+		g[v - 1].push_back(u - 1);
+	}
+	queue<ll> q;
+	q.push(x - 1);
+	while (!q.empty()) {
+		ll u = q.front();
+		q.pop();
+		components.insert(u + 1);
+
+		for (ll v : g[u]) {
+			if (!components.count(v + 1)) {
+				q.push(v);
+			}
+		}
+	}
+
+	// 再度ランダムに頂点を並び替える
+	rep(i, n) randomVertex[i] = i + 1;
+	shuffle(randomVertex.begin(), randomVertex.end());
+
+	// 最初に習得するスキルをランダムに選ぶ
+	vector<ll> s;
+	// 最低でも1つはxと同じ連結成分に含まれるようにする
+	auto it = components.begin();
+	ll firstSkillN = rnd.next(0, (int)components.size() - 1);
+	rep(i, firstSkillN) it++;
+	assert(it != components.end());
+	s.push_back(*it);
+
+	queue<ll> s_q;
+	rep(i, n) if (s[0] != randomVertex[i]) s_q.push(randomVertex[i]);
+	rep(i, k - 1) {
+		s.push_back(s_q.front());
+		s_q.pop();
+	}
+
+
+
+	// 出力
 	file << n << " " << m << " " << k << " " << x << "\n";
 	rep(i, n) {
 		file << a[i];
@@ -113,7 +149,7 @@ void generateHand1() {
 		edges.push_back({i, i + 1});
 	}
 	for (ll i = n - 1; i >= 2; i--) {
-		edges.push_back({0, i});
+		edges.push_back({1, i});
 	}
 
 	assert(edges.size() == m);
@@ -170,7 +206,6 @@ void generateStarGraph(int seq) {
 
 	ll n = MAX_N;
 	ll m = n - 1;
-	ll x = rnd.next(1LL, n);
 
 	vector<ll> vertex(n);
 	rep(i, n) vertex[i] = i + 1;
@@ -182,13 +217,15 @@ void generateStarGraph(int seq) {
 	set<ll> outers; // 外周の頂点
 	vector<pair<ll, ll>> edges;
 	for (ll i = 1; i < n; i++) {
-		edges.push_back({vertex[0], vertex[i]});
+		edges.push_back({vertex[i], vertex[0]});
 		outers.insert(vertex[i]);
 	}
-	outers.erase(x); // xは習得済みにならないように
-
 	assert(edges.size() == m);
 
+	// xは真ん中の頂点
+	ll x = vertex[0];
+
+	// 出力
 	file << n << " " << m << " " << outers.size() << " " << x << "\n";
 
 	rep(i, n) {
