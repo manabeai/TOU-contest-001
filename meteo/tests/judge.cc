@@ -15,18 +15,16 @@ int main(int argc, char* argv[]) {
     // should be between -2000 and 2000. If it doesn't belong to the specified
     // range, checker finishes with verdict _pe and comment saying that [sum of numbers]
     // is outside of the specified range.
-    double pans = ouf.readDouble(0.0, 1.0, "probability");
+    double actual = ouf.readDouble(0.0, 1.0, "probability");
     
     // This function reads a single integer from the jury output. Here we suppose
     // that jury's answer is correct and we do not need to additionally verify it.
-    double jans = ans.readDouble(0.0, 1.0, "probability"); // We suppose that jury's answer is correct
-    cout << "pans = " << pans << ", jans = " << jans << endl;
-    // 小数点第六位まで一致していればOK
-    if (fabs(pans - jans) < 1e-6) {
-        quitf(_ok, "The probability is correct."); // This finishes checker with verdit OK.
-    } else {
-        // quitf handles a comment like printf, i. e. you may use specifiers like
-        // %d, %s etc in the comment.
-        quitf(_wa, "The probability is wrong: expected = %f, found = %f", jans, pans);
+    double expected = ans.readDouble(0.0, 1.0, "probability"); // We suppose that jury's answer is correct
+    
+    if (!doubleCompare(expected, actual, 1e-9)) {
+        quitf(_wa, "Expected %.12f, but found %.12f (absolute error = %.12f, relative error = %.12f)",
+              expected, actual, fabs(expected - actual));
     }
+
+    quitf(_ok, "Accepted: %.12f", actual);
 }
