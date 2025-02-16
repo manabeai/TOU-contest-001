@@ -62,7 +62,7 @@ AABBA
 
 ### 入力
 ```
-20 4
+18 4
 AAAAAAAABBBBBBBAAA
 ```
 
