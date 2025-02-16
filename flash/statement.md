@@ -6,6 +6,7 @@ Aoki君はこれから $\lparen$$1$,$A_1$$\rparen$,$\lparen$$1$,$A_2$$\rparen$$\
 $\lparen$ $1$ , $A_i$ $\rparen$ に置かれたライトの発する光はそこから $\lparen$ $H$ , $A_i$ $\rparen$ に向かって直線に、$1$ マス進むごとに左右に幅を $1$ マス増やしながら進みます。   
 厳密には、 $\lparen$$1$ , $A_i$$\rparen$ に置かれたライトの照らす範囲は $\lparen$$1$ , $A_i$$\rparen$ , $\lparen$$2$ , $A_{i-1}$ $\dots$ $A_{i+1}$ $\rparen$ , $\dots$ , $\lparen$$H$ , $A_{i - H + 1}$ $\dots$ $A_{i + H - 1}$ $\rparen$です。  
 
+![problem image](flash-image.png)
 
 ## 制約
 - $1 \leq H, N \leq 10^{6}$
