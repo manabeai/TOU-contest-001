@@ -39,7 +39,7 @@ void solve() {
     
     double ans = 0.0;
 
-    for (ll i = 0; i < (1ll << (H*W)); ++i) {
+    for (ll i = 0; i < (1ll << (min((ulong)60,H*W))); ++i) {
         double odds = 1.0;
         for (ll p = 0; p < H; ++p) {
             for (ll q = 0; q < W; ++q) {
