@@ -5,7 +5,7 @@
 ##   title: The problem title shown in test summary.
 ##   id: The problem ID (typically starts from A) used to order problems.
 ##   time_limit: The time limit of this problem in seconds.
-pid = 'N'
+pid = 'J'
 problem_name = "Combining Nim"
 problem(title = pid + ": " + problem_name,
         # wiki_name = 'A+B',
