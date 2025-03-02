@@ -133,6 +133,8 @@ int solve() {
 	assert(minPath.size() > 0);
     vll ans = minPath.at(0);
     rep(i, ans.size()) ans.at(i)++;
+
+	cout << ans.size() << endl;
     cout << ans << endl;
 
     return 0;

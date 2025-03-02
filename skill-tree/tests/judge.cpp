@@ -1,4 +1,6 @@
 #include <bits/stdc++.h>
+#include <exception>
+#include "testlib.h"
 using namespace std;
 using ll = long long;
 using vll = vector<ll>;
@@ -92,20 +94,31 @@ struct phash {
 
 
 
+const ll MAX5 = 100000LL;
+const ll MAX9 = 1000000000LL;
+
+ll n, m, k, x;
+vll a;
+
 int solve() {
-	ll n, m, k, x; cin >> n >> m >> k >> x;
+	n = inf.readLong(2, 2 * MAX5, "n");
+	m = inf.readLong(1, min(n * (n - 1) / 2, 2 * MAX5), "m");
+	k = inf.readLong(1, n, "k");
+	x = inf.readLong(1, n, "x");
 	--x;
-	vll a(n);
-	cin >> a;
+	a.resize(n);
+	rep(i, n) a[i] = inf.readLong(1, MAX9, "a[i]");
 	unordered_set<ll> starts;
 	rep(i, k) {
-		ll s; cin >> s;
+		ll s = inf.readLong(1, n, "s[i]");
 		--s;
 		starts.insert(s);
 	}
+
 	vvll g(n, vll());
 	rep(i, m) {
-		ll u, v; cin >> u >> v;
+		ll u = inf.readLong(1, n, "u");
+		ll v = inf.readLong(1, n, "v");
 		--u, --v;
 		g[v].push_back(u);
 	}
@@ -113,56 +126,50 @@ int solve() {
 
 
 	// 最小コスト、最適な前の頂点
-	vector<pair<ll, ll>> dp(n, {INF, -1});
+	vector<ll> dp(n, INF);
 	auto dfs = [&](auto self, ll u) -> ll {
-		if (dp[u].first != INF) {
-			return dp[u].first;
+		if (dp[u] != INF) {
+			return dp[u];
 		}
 		if (starts.count(u)) {
-			dp[u] = {a[u], -1};
-			return dp[u].first;
+			dp[u] = a[u];
+			return dp[u];
 		}
 
 		ll minCost = INF;
-		ll best = -1;
 		for (ll v : g[u]) {
 			ll cost = self(self, v);
-
-			if (cost < minCost) {
-				minCost = cost;
-				best = v;
-			}
-			else if (cost == minCost && v < best) {
-				minCost = cost;
-				best = v;
-			}
+			chmin(minCost, cost);
 		}
 
-		dp[u] = {minCost + a[u], best};
-		return dp[u].first;
+		dp[u] = minCost + a[u];
+		return dp[u];
 	};
 
 	dfs(dfs, x);
 
-	stack<ll> ans;
-	for (ll u = x; u != -1; u = dp[u].second) {
-		ans.push(u);
-	}
-
-	cout << ans.size() << endl;
-	while (!ans.empty()) {
-		cout << ans.top() + 1;
-		if (ans.size() > 1) cout << " ";
-		ans.pop();
-	}
-	cout << endl;
-
-	return 0;
+	return dp[x];
 }
 
-int main() {
-	cin.tie(nullptr);
-	ios::sync_with_stdio(false);
 
-	return solve();
+
+
+int main(int argc, char* argv[]) {
+	registerTestlibCmd(argc, argv);
+
+	ll answer = solve();
+	
+
+	ll output_ans = 0;
+	ll output_size = ouf.readLong(1, n, "output");
+	rep(i, output_size) {
+		ll next = ouf.readLong(1, n, "output");
+		--next;
+		output_ans += a[next];
+	}
+
+	if (output_ans != answer) {
+		quitf(_wa, "Expected: %lld, Got: %lld", answer, output_ans);
+	}
+	quitf(_ok, "Accepted: %lld", answer);
 }
