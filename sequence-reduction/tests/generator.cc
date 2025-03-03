@@ -52,7 +52,7 @@ void generateRandom() {
 
 void generateHand(int n, int m, int max_sequence_length, int char_types) {
     try{
-        ofstream file("hand" + to_string(hand_seq) + ".in");
+        ofstream file("hand_" + to_string(hand_seq) + ".in");
         if (file.is_open()) {
             file << n << " " << m << "\n";
             int cnt = 0;
@@ -91,6 +91,7 @@ int main(int argc, char* argv[]) {
     generateHand(MAX_N,MAX_M,MAX_N,MAX_CHAR_TYPE);
     generateHand(MAX_N,MIN_M,MAX_N,MAX_CHAR_TYPE);
     generateHand(MAX_N,10,200,MIN_CHAR_TYPE);
+    generateHand(MAX_N,MAX_M,MAX_M,MIN_CHAR_TYPE);
     generateHand(MAX_N,MAX_M,1,MAX_CHAR_TYPE);
     generateHand(MIN_N,MIN_M,1,MIN_CHAR_TYPE);
 	return 0;
