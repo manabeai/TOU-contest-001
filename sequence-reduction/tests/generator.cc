@@ -4,31 +4,30 @@
 #include <random>
 #include <string>
 using namespace std;
-const int MIN_N = 1;
-const int MAX_N = 300000;
-const int MIN_M = 1;
-const int MAX_M = 300000;
-const int MAX_CHAR_TYPE = 26;
-const int MIN_CHAR_TYPE = 1;
 
 int random_seq = 1;
 int hand_seq = 1;
 
-void generateRandom() {
+void generateRandom(int MIN_N) {
     try{
         ofstream file("random_" + to_string(random_seq) + ".in");
         if (file.is_open()) {
 
-            int n = rnd.next(MIN_N,MAX_N);
-            int m = rnd.next(MIN_M,n);
+            int n = rnd.next(max(1,MIN_N),300000);
+            int m = rnd.next(1,n);
             file << n << " " << m << "\n";
 
             int cnt = 0;
+            char prev = 'A';
             while(cnt < n){
-                int sequence_length = rnd.next(1,m * 2 + 1);
+                int sequence_length = rnd.next(max(1,m - 100),m + 100);
                 if(cnt + sequence_length > n)sequence_length = n - cnt;
                 cnt += sequence_length;
-                char c = 'A' + rnd.next(MAX_CHAR_TYPE);
+                char c = 'A' + rnd.next(26);
+                while(c == prev){
+                    c = 'A' + rnd.next(26);
+                }
+                prev = c;
                 for(int i = 0; i < sequence_length; i++){
                     if(cnt == n && i == sequence_length - 1)
                         file << c;
@@ -50,11 +49,73 @@ void generateRandom() {
     }
 }
 
+void generateHand(int n, int m,int char_types) {
+    try{
+        ofstream file("hand_" + to_string(hand_seq) + ".in");
+        if (file.is_open()) {
+            file << n << " " << m << "\n";
+
+            int cnt = 0;
+            char prev = 'A';
+            while(cnt < n){
+                int sequence_length = rnd.next(max(1,m - (m / 10 * 9)),m + (m / 10 * 9));
+                if(cnt + sequence_length > n)sequence_length = n - cnt;
+                cnt += sequence_length;
+                char c = 'A' + rnd.next(char_types);
+                while(c == prev){
+                    c = 'A' + rnd.next(char_types);
+                }
+                prev = c;
+                for(int i = 0; i < sequence_length; i++){
+                    if(cnt == n && i == sequence_length - 1)
+                        file << c;
+                    else
+                        file << c << " ";
+                }
+            }
+            file.flush();
+            file.close();
+        }
+        else {
+            throw runtime_error("ファイルが開けませんでした！");
+        }
+        hand_seq++;
+        return;
+    }catch(const runtime_error& e){
+        cerr << e.what() << endl;
+        exit(1);
+    }
+}
+
 int main(int argc, char* argv[]) {
     registerGen(argc, argv, 1);
     
-	for (int i = 0; i < 15; i++) {
-		generateRandom();
-	}
+	generateRandom(1000); //nは1000以上
+    generateRandom(10000);
+    generateRandom(100000);
+    generateRandom(150000);
+    generateRandom(200000);
+    generateRandom(250000);
+    generateRandom(300000);
+    generateRandom(300000);
+    generateRandom(300000);
+    generateRandom(300000);
+
+    generateHand(1,1,26); //n,m,文字種
+    generateHand(2,2,26);
+    generateHand(5,5,26);
+    generateHand(10,10,26);
+    generateHand(100,100,26);
+    generateHand(300000,60000,26);
+    generateHand(300000,60000,2);
+    generateHand(300000,100000,26);
+    generateHand(300000,100000,2);
+    generateHand(300000,150000,26);
+    generateHand(300000,150000,2);
+    generateHand(300000,250000,26);
+    generateHand(300000,250000,2);
+    generateHand(300000,300000,26);
+    generateHand(300000,300000,2);
+
 	return 0;
 }
