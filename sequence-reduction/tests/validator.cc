@@ -5,9 +5,9 @@
 using namespace std;
 
 const int MIN_N = 1;
-const int MAX_N = 300000;
+const int MAX_N = 500000;
 const int MIN_M = 1;
-const int MAX_M = 300000;
+const int MAX_M = 500000;
 const int MAX_CHAR_TYPE = 26;
 const int MIN_CHAR_TYPE = 1;
 
