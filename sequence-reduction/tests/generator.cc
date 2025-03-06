@@ -13,7 +13,7 @@ void generateRandom(int MIN_N) {
         ofstream file("random_" + to_string(random_seq) + ".in");
         if (file.is_open()) {
 
-            int n = rnd.next(max(1,MIN_N),300000);
+            int n = rnd.next(max(1,MIN_N),500000);
             int m = rnd.next(1,n);
             file << n << " " << m << "\n";
 
@@ -97,25 +97,29 @@ int main(int argc, char* argv[]) {
     generateRandom(200000);
     generateRandom(250000);
     generateRandom(300000);
-    generateRandom(300000);
-    generateRandom(300000);
-    generateRandom(300000);
+    generateRandom(350000);
+    generateRandom(400000);
+    generateRandom(450000);
+    generateRandom(500000);
+    generateRandom(500000);
+    generateRandom(500000);
 
     generateHand(1,1,26); //n,m,文字種
     generateHand(2,2,26);
     generateHand(5,5,26);
     generateHand(10,10,26);
     generateHand(100,100,26);
-    generateHand(300000,60000,26);
-    generateHand(300000,60000,2);
-    generateHand(300000,100000,26);
-    generateHand(300000,100000,2);
-    generateHand(300000,150000,26);
-    generateHand(300000,150000,2);
-    generateHand(300000,250000,26);
-    generateHand(300000,250000,2);
-    generateHand(300000,300000,26);
-    generateHand(300000,300000,2);
+    generateHand(100,1,26);
+    generateHand(500000,100000,26);
+    generateHand(500000,200000,2);
+    generateHand(500000,250000,26);
+    generateHand(500000,300000,2);
+    generateHand(500000,350000,26);
+    generateHand(500000,350000,2);
+    generateHand(500000,400000,26);
+    generateHand(500000,400000,2);
+    generateHand(500000,500000,26);
+    generateHand(500000,500000,2);
 
 	return 0;
 }
