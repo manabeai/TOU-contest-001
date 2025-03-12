@@ -102,7 +102,7 @@ jobs:
         run: ./process.sh
 
       - name: Clean up
-        run: rm format.sh process.sh && ls -la
+        run: rm format.sh process.sh && ls -la　&& ls generated -la
 
       - name: Archive judgedata
         uses: actions/upload-artifact@v4
