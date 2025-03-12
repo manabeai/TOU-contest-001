@@ -62,34 +62,36 @@ jobs:
       - name: Generate proccess.sh
         run: |
           cat << 'EOF' > process.sh
-          #!/bin/bash
-          
-          # 生成物を保存するディレクトリ
-          mkdir -p generated
-          
-          # ルートディレクトリの各サブディレクトリを処理
-          for dir in ./*/; do
-            # tests ディレクトリが存在するか確認
-            if [ -d "${dir}tests" ]; then
-              echo "Processing: ${dir}"
-          
-              # 対象ディレクトリに移動してフォーマット実行
-              (
-                cd "$dir" || exit 1
-                ../format.sh tests
-              )
-          
-              # judgedata が生成されていればリネームして移動
-              if [ -d "${dir}judgedata" ]; then
-                # judgedata を元のディレクトリ名でリネーム
-                base_dir=$(basename "$dir")
-                mv "$judgedata" "./generated/${base_dir}"
-                echo "Moved and renamed judgedata to generated/${base_dir}"
-              else
-                echo "No judgedata directory found in ${dir}"
+            #!/bin/bash
+
+            # 生成物を保存するディレクトリ
+            mkdir -p generated
+
+            # ルートディレクトリの各サブディレクトリを処理
+            for dir in ./*/; do
+              # tests ディレクトリが存在するか確認
+              if [ -d "${dir}tests" ]; then
+                echo "Processing: ${dir}"
+
+                # 対象ディレクトリに移動してフォーマット実行
+                (
+                  cd "$dir" || exit 1
+                  ../format.sh tests
+                )
+
+                # judgedata が生成されていればリネームして移動
+                judgedata_dir="${dir}judgedata"
+                
+                if [ -d "$judgedata_dir" ]; then
+                  # judgedata を元のディレクトリ名でリネーム
+                  base_dir=$(basename "$dir")
+                  mv "$judgedata_dir" "./generated/${base_dir}"
+                  echo "Moved and renamed judgedata to generated/${base_dir}"
+                else
+                  echo "No judgedata directory found in ${dir}"
+                fi
               fi
-            fi
-          done
+            done
           EOF
           chmod +x process.sh
 
