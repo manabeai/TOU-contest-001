@@ -94,7 +94,9 @@ jobs:
             EOF
             chmod +x process.sh
 
-
+      - name: Ensure process.sh is executable
+        run: chmod +x process.sh
+        
       - name: Run proccess.sh
         run: ./process.sh
 
