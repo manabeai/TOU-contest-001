@@ -83,8 +83,8 @@ jobs:
               if [ -d "${dir}judgedata" ]; then
                 # judgedata を元のディレクトリ名でリネーム
                 base_dir=$(basename "$dir")
-                mv "$judgedata" "../generated/${base_dir}"
-                echo "Moved and renamed judgedata to /generated/${base_dir}"
+                mv "$judgedata" "./generated/${base_dir}"
+                echo "Moved and renamed judgedata to generated/${base_dir}"
               else
                 echo "No judgedata directory found in ${dir}"
               fi
