@@ -90,9 +90,8 @@ jobs:
               fi
             fi
           done
-          
-            EOF
-            chmod +x process.sh
+          EOF
+          chmod +x process.sh
 
       - name: Ensure process.sh is executable
         run: chmod +x process.sh
