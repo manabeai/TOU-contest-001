@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
 	rep(i, 26) generate_same(i + 1);
 }
 
-const int MAX_N = 2500;
+const int MAX_N = 250;
 
 void generate_random(int seq) {
 	ofstream file = ofstream("random_" + to_string(seq) + ".in");

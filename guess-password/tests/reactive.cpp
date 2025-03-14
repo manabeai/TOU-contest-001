@@ -3,8 +3,8 @@ using namespace std;
 
 #include "reactive.hpp"
 
-const int MAX_N = 2500;
-const int MAX_Q = 10000;
+const int MAX_N = 250;
+const int MAX_Q = 1000;
 
 int main(int argc, char *argv[]) {
     reactive_start(argv[1]);
