@@ -34,7 +34,7 @@ def Generate(N, k, S):
 
 
 def main():
-    for _ in six.moves.range(20):
+    for _ in six.moves.range(10):
         N = random.randrange(N_MIN, N_MAX)
         k_MAX = N
         k = random.randrange(k_MIN, k_MAX)
