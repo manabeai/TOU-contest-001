@@ -12,7 +12,7 @@
 - $2 \le N \le 2 \times 10^5$
 - $1 \le M \le \min(\frac{N(N - 1)}{2}, 2 \times 10^5)$
 - $1 \le A_i \le 10^9$
-- $1 \le u, v, K, X \le N$
+- $1 \le u, v, K, X, S_i \le N$
 - $u \ne v$
 - $i \ne j$ ならば、$(u_i, v_i) \ne (u_j, v_j)$かつ$(u_i, v_i) \ne (v_j, u_j)$
 - 閉路は存在しない
