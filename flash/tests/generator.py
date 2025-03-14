@@ -23,13 +23,22 @@ def Generate(N, H, A):
 
 
 def main():
-    for _ in six.moves.range(20):
+    for _ in six.moves.range(7):
         H = random.randrange(H_MIN, H_MAX)
         N = random.randrange(N_MIN, N_MAX)
 
         A = random.sample(range(H,A_MAX), N)
         # A = [2] * N
         Generate(N,H,A)
+
+
+    for _ in six.moves.range(5):
+        H = random.randrange(1, 10)
+        N = random.randrange(1, 10)
+        A = random.sample(range(H,22), N)
+        Generate(N,H,A)
+
+    Generate(100,H_MAX,[i for i in range(H_MAX, H_MAX+100)])
 
 
 if __name__ == '__main__':
