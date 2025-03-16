@@ -138,11 +138,20 @@ int solve() {
 			}
 		}
 
+		if (minCost == INF) {
+			return INF;
+		}
+
 		dp[u] = {minCost + a[u], best};
 		return dp[u].first;
 	};
 
 	dfs(dfs, x);
+
+	if (dp[x].first == INF) {
+		cout << -1 << endl;
+		return 0;
+	}
 
 	stack<ll> ans;
 	for (ll u = x; u != -1; u = dp[u].second) {
