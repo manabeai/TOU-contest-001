@@ -21,7 +21,7 @@ int main(int argc, char* argv[]) {
     }
 	generateHand1();
 	generateHand2();
-    for (int i = 1; i <= 10; i++) {
+    for (int i = 1; i <= 3; i++) {
 		generateStarGraph(i);
     }
 }
