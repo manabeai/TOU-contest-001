@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#include <exception>
 #include "testlib.h"
 using namespace std;
 using ll = long long;
@@ -12,8 +11,8 @@ using PPLL = pair<ll, PLL>;
 #define rep(i, n) for(ll i = 0; i < n; ++i)
 #define loop(i, a, b) for(ll i = a; i <= b; ++i)
 #define all(v) v.begin(), v.end()
-constexpr ll INF = 1001001001001001001LL;
-constexpr int INF32 = 1001001001;
+constexpr ll INF = 9009009009009009009LL;
+constexpr int INF32 = 9009009009;
 constexpr ll MOD = 998244353;
 constexpr ll MOD107 = 1000000007;
 
@@ -100,7 +99,7 @@ const ll MAX9 = 1000000000LL;
 ll n, m, k, x;
 vll a;
 
-int solve() {
+ll solve() {
 	n = inf.readLong(2, 2 * MAX5, "n");
 	m = inf.readLong(1, min(n * (n - 1) / 2, 2 * MAX5), "m");
 	k = inf.readLong(1, n, "k");
@@ -125,15 +124,14 @@ int solve() {
 
 
 
-	// 最小コスト、最適な前の頂点
+	// 最小コスト
 	vector<ll> dp(n, INF);
 	auto dfs = [&](auto self, ll u) -> ll {
 		if (dp[u] != INF) {
 			return dp[u];
 		}
 		if (starts.count(u)) {
-			dp[u] = a[u];
-			return dp[u];
+			return dp[u] = a[u];
 		}
 
 		ll minCost = INF;
@@ -142,13 +140,14 @@ int solve() {
 			chmin(minCost, cost);
 		}
 
-		dp[u] = minCost + a[u];
-		return dp[u];
+		if (minCost == INF) return INF;
+
+		return dp[u] = minCost + a[u];
 	};
 
 	dfs(dfs, x);
 
-	return dp[x];
+	return dp[x] != INF ? dp[x] : -1;
 }
 
 
@@ -161,11 +160,16 @@ int main(int argc, char* argv[]) {
 	
 
 	ll output_ans = 0;
-	ll output_size = ouf.readLong(1, n, "output");
-	rep(i, output_size) {
-		ll next = ouf.readLong(1, n, "output");
-		--next;
-		output_ans += a[next];
+	ll output_size = ouf.readLong(-1, n, "output");
+	if (output_size == -1) {
+		output_ans = -1;
+	}
+	else {
+		rep(i, output_size) {
+			ll next = ouf.readLong(1, n, "output");
+			--next;
+			output_ans += a[next];
+		}
 	}
 
 	if (output_ans != answer) {

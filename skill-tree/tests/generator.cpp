@@ -62,42 +62,14 @@ void generateRandom(int seq) {
 		if (min(MAX_M, n * (n - 1) / 2) == m) break;
     }
 
-	// xと同じ連結成分の中に1つ以上sが存在するようにする
-	vector<vector<ll>> g(n, vector<ll>());
-	set<ll> components;
-	for (auto [u, v] : used) {
-		g[v - 1].push_back(u - 1);
-	}
-	queue<ll> q;
-	q.push(x - 1);
-	while (!q.empty()) {
-		ll u = q.front();
-		q.pop();
-		components.insert(u + 1);
-
-		for (ll v : g[u]) {
-			if (!components.count(v + 1)) {
-				q.push(v);
-			}
-		}
-	}
-
 	// 再度ランダムに頂点を並び替える
 	rep(i, n) randomVertex[i] = i + 1;
 	shuffle(randomVertex.begin(), randomVertex.end());
 
-	// 最初に習得するスキルをランダムに選ぶ
 	vector<ll> s;
-	// 最低でも1つはxと同じ連結成分に含まれるようにする
-	auto it = components.begin();
-	ll firstSkillN = rnd.next(0, (int)components.size() - 1);
-	rep(i, firstSkillN) it++;
-	assert(it != components.end());
-	s.push_back(*it);
-
 	queue<ll> s_q;
-	rep(i, n) if (s[0] != randomVertex[i]) s_q.push(randomVertex[i]);
-	rep(i, k - 1) {
+	rep(i, n) s_q.push(randomVertex[i]);
+	rep(i, k) {
 		s.push_back(s_q.front());
 		s_q.pop();
 	}
