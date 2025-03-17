@@ -87,6 +87,11 @@ void solve() {
         if (state[0][0] == 1) continue;
         if (dfs(dfs, 0, 0)) ans += odds;
     }
+    // cout << ct << endl;
+    if (H*W >= 8 || ct > (ll)100000000) {
+        correct(H,W,A);
+        return;
+    }
     cout << fixed << setprecision(10) << ans << endl;
 }
 
