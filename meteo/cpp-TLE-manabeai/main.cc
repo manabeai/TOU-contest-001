@@ -1,14 +1,43 @@
 #include <bits/stdc++.h>
-#ifdef DEBUG
-#include "cpp-dump/dump.hpp"
-#define dump(...) cpp_dump(__VA_ARGS__)
-#else
-#define dump(...)
-#endif
+#define rep(i,n) for (long long i=0;i<(ll)n;i++)
+#define loop(i,m,n) for(long long i=m;i<=(ll)n;i++)
 using namespace std;
 typedef long long ll;
 int dx[2] = {1, 0};
 int dy[2] = {0, 1};
+
+int correct(ll H,ll W,vector<vector<double>> A) {
+    ll h = H;
+    ll w = W;
+	vector<vector<double>> a(h,vector<double>(w+h-1,1.0));
+	rep(i,h)rep(j,w){
+		a[i][j]=A[i][j];
+	}
+	vector<vector<double>> dp(h+w-1,vector<double>(1LL<<h,0));
+	dp[0][1]=1.0-a[0][0];
+	rep(i,h+w-2){
+		rep(j,1LL<<h){
+			//次の列として、あり得る最大、1を建てた例を作る
+			ll bit=(j|(j<<1LL));
+			bit &= (1LL<<(h+1))-1;
+			ll tmp=bit;
+			while(1){
+				double kakuritu=1;
+				rep(k,min(h,i+2)){
+					if(!(bit&(1LL<<k)))continue;
+					if(tmp&(1LL<<k))kakuritu *= 1.0-a[k][i+1-k];
+					else kakuritu *= a[k][i+1-k];
+				}
+				dp[i+1][tmp]+=kakuritu*dp[i][j];
+				if(tmp==0)break;
+				tmp = (bit&(tmp-1));
+			}
+		}
+	}
+
+	cout<<fixed<<setprecision(15)<<dp[h+w-2][1LL<<(h-1)]<<endl;
+	return 0;
+}
 
 void solve() {
     ulong H, W;
@@ -38,11 +67,14 @@ void solve() {
     };
     
     double ans = 0.0;
+    ll ct = 0;
 
     for (ll i = 0; i < (1ll << (min((ulong)60,H*W))); ++i) {
         double odds = 1.0;
         for (ll p = 0; p < H; ++p) {
             for (ll q = 0; q < W; ++q) {
+                if (ct > (ll)10000000) {correct(H,W,A); return;}
+                ++ct;
                 if ((i >> (p*W + q)) & 1) {
                     state[p][q] = 1;
                     odds *= A[p][q];
