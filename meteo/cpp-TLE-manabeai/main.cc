@@ -6,35 +6,33 @@ typedef long long ll;
 int dx[2] = {1, 0};
 int dy[2] = {0, 1};
 
-int correct(ll H,ll W,vector<vector<double>> A) {
+int correct(ll H,ll W,vector<vector<double>> a) {
     ll h = H;
     ll w = W;
-	vector<vector<double>> a(h,vector<double>(w+h-1,1.0));
-	rep(i,h)rep(j,w){
-		a[i][j]=A[i][j];
-	}
 	vector<vector<double>> dp(h+w-1,vector<double>(1LL<<h,0));
 	dp[0][1]=1.0-a[0][0];
 	rep(i,h+w-2){
 		rep(j,1LL<<h){
-			//次の列として、あり得る最大、1を建てた例を作る
+			//次の列として、あり得る最大、1を建てた列を作る
 			ll bit=(j|(j<<1LL));
-			bit &= (1LL<<(h+1))-1;
+			bit &= (1LL<<h)-1;
 			ll tmp=bit;
+			//jからtmpの状態へ遷移する確率を求める。
 			while(1){
-				double kakuritu=1;
+				double kakuritu=dp[i][j];
 				rep(k,min(h,i+2)){
+					//前の状態的にどっちでも良いならスキップ
 					if(!(bit&(1LL<<k)))continue;
+					//前の状態的に影響する場所は、落ちるか落ちないかの確率を計算。
 					if(tmp&(1LL<<k))kakuritu *= 1.0-a[k][i+1-k];
 					else kakuritu *= a[k][i+1-k];
 				}
-				dp[i+1][tmp]+=kakuritu*dp[i][j];
+				dp[i+1][tmp]+=kakuritu;
 				if(tmp==0)break;
 				tmp = (bit&(tmp-1));
 			}
 		}
 	}
-
 	cout<<fixed<<setprecision(15)<<dp[h+w-2][1LL<<(h-1)]<<endl;
 	return 0;
 }
@@ -87,7 +85,7 @@ void solve() {
         if (state[0][0] == 1) continue;
         if (dfs(dfs, 0, 0)) ans += odds;
     }
-    // cout << ct << endl;
+    cout << ct << endl;
     if (H*W >= 8 || ct > (ll)100000000) {
         correct(H,W,A);
         return;
