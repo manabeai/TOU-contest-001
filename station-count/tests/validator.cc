@@ -21,7 +21,7 @@ int main(int argc, char* argv[]) {
         unordered_set<string> s_set;
         for (int i = 0; i < N; i++) {
             string S = inf.readToken("[a-zA-Z]{1,20}");
-            if(i != N - 1)inf.readEoln();
+            inf.readEoln();
             if (!s_set.insert(S).second) {
                 throw runtime_error("Duplicated S");
             }
