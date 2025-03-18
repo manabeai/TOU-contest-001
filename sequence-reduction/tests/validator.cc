@@ -32,6 +32,7 @@ int main(int argc, char* argv[]) {
 				throw runtime_error("Char Out Of Range");
 			}
 		}
+		inf.readEoln();
 		inf.readEof();
 		return 0;
 	}

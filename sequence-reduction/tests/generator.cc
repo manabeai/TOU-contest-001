@@ -35,6 +35,7 @@ void generateRandom(int MIN_N) {
                         file << c << " ";
                 }
             }
+            file << '\n';
             file.flush();
             file.close();
         }
@@ -73,6 +74,7 @@ void generateHand(int n, int m,int char_types) {
                         file << c << " ";
                 }
             }
+            file << '\n';
             file.flush();
             file.close();
         }
