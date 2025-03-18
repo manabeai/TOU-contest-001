@@ -28,7 +28,7 @@ string generateStationName(){
 
 void generate() {
     try {
-        string filename = "50 - random" + to_string(random_seq) + ".in";
+        string filename = "random_" + to_string(random_seq) + ".in";
         ofstream file(filename);
         if (!file) {
             throw runtime_error("ファイルを開けませんでした: " + filename);
@@ -57,8 +57,7 @@ void generate() {
         file << s[u_index] << endl;
         file << n << endl;
         for (int i = 0; i < s.size(); i++) {
-            file << s[i];
-            if(i != s.size() - 1)file << "\n";
+            file << s[i] << '\n';
         }
         random_seq++;
         file.flush();
@@ -98,8 +97,7 @@ void generateHand(int n) {
         file << s[u_index] << endl;
         file << n << endl;
         for (int i = 0; i < s.size(); i++) {
-            file << s[i];
-            if(i != s.size() - 1)file << "\n";
+            file << s[i] << '\n';
         }
         hand_seq++;
         file.flush();
@@ -113,7 +111,7 @@ void generateHand(int n) {
 
 int main(int argc, char* argv[]) {
     registerGen(argc, argv, 1);
-    for (int i = 0; i < 18; i++) {
+    for (int i = 0; i < 8; i++) {
         generate();
     }
     generateHand(2);
