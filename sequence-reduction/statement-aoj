@@ -30,7 +30,7 @@
 <ul>
     <li>\(1 \leq M \leq N \leq 5 \times 10^5 \)</li>
     <li>\(N,M\) は整数</li>
-    <li>\(C_i\) \((1 \leq i \leq N\)) は英大文字</li>
+    <li>\(C_i\) \((1 \leq i \leq N)\) は英大文字</li>
 </ul>
 
 <h3>入力例</h3>
