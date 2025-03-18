@@ -22,7 +22,7 @@ $\sum_{k=l_j}^{r_j}B_k \leqq \sum_{k=l_j}^{r_j}A_k$ を満たすような $\sum_
 - $0 \leqq A_i \leqq 2 \times 10^5$
 - $0 \leqq B_i \leqq 2 \times 10^5$
 - $0 \leqq \sum_{k=1}^{N}A_k \leqq 2 \times 10^5$
-- $0 \leqq \sum_{k=1}^{N}A_k \leqq 2 \times 10^5$
+- $0 \leqq \sum_{k=1}^{N}B_k \leqq 2 \times 10^5$
 - $1 \leqq C_i \leqq 10^9$
 - 入力はすべて整数
 
