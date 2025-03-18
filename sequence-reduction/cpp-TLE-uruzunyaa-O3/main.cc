@@ -24,13 +24,18 @@ int main(){
 		cin>>c;
 		s.push_back(c);
 		bool f=true;
-		if(s.size()<=m)rep(j,m){
-			if(s[i-j]!=s[i]){
-				f=false;
-				break;
-			}
-		}
-		if(f)s.erase(m);
+		if (s.size() >= m) {
+            bool f = true;
+            rep(j, m) {
+                if (s[s.size() - 1 - j] != s[s.size() - 1]) {
+                    f = false;
+                    break;
+                }
+            }
+            if (f) {
+                s.erase(s.end() - m, s.end());
+            }
+        }
 	}
 	cout<<s.size()<<endl;
 	return 0;
