@@ -21,6 +21,7 @@ def main():
     A = list(map(int,input().split()))
     A_MIN = H
     assert len(A) == N, 'N and length of A are different'
+    assert H <= max(A) <= A_MAX, 'A out of range'
 
     set_A = set()
     for a in A:
