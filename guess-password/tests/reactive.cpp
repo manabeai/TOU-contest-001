@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
 		--left;
         if (query[0] < '0' || '9' < query[0]) {
             cout << "WA" << endl;
-            cerr << "Invalid query: " << query << endl;
+            // cerr << "Invalid query: " << query << endl;
             reactive_end();
             return 0;
         }
@@ -56,16 +56,16 @@ int main(int argc, char *argv[]) {
         cout << "AC" << endl;
         reactive_end();
     }
-    else {
-        cout << "WA" << endl;
+    // else {
+    //     cout << "WA" << endl;
 
-        if (found) {
-            cerr << "Expected: " << s << endl;
-            cerr << "Received: " << ans << endl;
-        }
-        else { cerr << "Query limit exceeded" << endl; }
-        reactive_end();
-    }
+    //     if (found) {
+    //         cerr << "Expected: " << s << endl;
+    //         cerr << "Received: " << ans << endl;
+    //     }
+    //     else { cerr << "Query limit exceeded" << endl; }
+    //     reactive_end();
+    // }
 
     return 0;
 }
