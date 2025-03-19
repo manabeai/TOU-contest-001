@@ -17,7 +17,7 @@ ll Chebyshev(ll x1,ll y1,ll x2,ll y2){
 
 int main(int argc, char *argv[]) {
     reactive_start(argv[1]);
-	
+
 	ll type;
 	cin>>type;
 
@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
 			sscanf(query.c_str(), "%lld %lld", &a ,&b);
 
 			if(a<0||MAX_XY<a||b<0||MAX_XY<b){
-				reactive_write("-1");
+				reactive_write("-1\n");
 				cout << "WA" << endl;
 				reactive_end();
 				return 0;
@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
 			x+=dx[d],y+=dy[d];
 			ll res = Chebyshev(x,y,a,b);
 			
-			reactive_write(to_string(res));
+			reactive_write(to_string(res) + "\n");
 
 			if(res==0){
 				cout<<"AC"<<endl;
@@ -48,10 +48,9 @@ int main(int argc, char *argv[]) {
 			}
 		}
 		string query = reactive_read();
-		reactive_write("-1");
+		reactive_write("-1\n");
 		cout << "WA" << endl;
-		reactive_end();
-		return 0;
+		
 	}else{
 		ll a,f,d,p;
 		cin>>a>>f>>d>>p;
@@ -62,7 +61,7 @@ int main(int argc, char *argv[]) {
 
 		if(5<=x&&x<=MAX_XY-5&&5<=y&&y<=MAX_XY-5){
 			if(p==0){
-				reactive_write("0");
+				reactive_write("0\n");
 				cout<<"AC"<<endl;
 				reactive_end();
 				return 0;
@@ -70,7 +69,7 @@ int main(int argc, char *argv[]) {
 			p--;
 		}
 
-		reactive_write(to_string(a));
+		reactive_write(to_string(a)+ "\n");
 		//距離Aとなるような、初期解の候補を全列挙
 		set<vector<ll>> fans;
 
@@ -110,14 +109,13 @@ int main(int argc, char *argv[]) {
 				}
 			}
 		}
-		
 		//2回目以降のクエリ
 		for(ll i=2;i<=MAX_Q;i++){
-			string query = reactive_read();
+			query = reactive_read();
 			sscanf(query.c_str(), "%lld %lld", &x ,&y);
 			
 			if(x<0||MAX_XY<x||y<0||MAX_XY<y){
-				reactive_write("-1");
+				reactive_write("-1\n");
 				cout << "WA" << endl;
 				reactive_end();
 				return 0;
@@ -134,7 +132,7 @@ int main(int argc, char *argv[]) {
 			if(flag){
 				//正解にしたい場合、もしくは1通りになっている場合
 				if(p==0||fans.size()==1){
-					reactive_write("0");
+					reactive_write("0\n");
 					cout<<"AC"<<endl;
 					reactive_end();
 					return 0;
@@ -154,7 +152,7 @@ int main(int argc, char *argv[]) {
 					}
 					//実はどの例も正解だった場合
 					if(flag2){
-						reactive_write("0");
+						reactive_write("0\n");
 						cout<<"AC"<<endl;
 						reactive_end();
 						return 0;
@@ -163,8 +161,9 @@ int main(int argc, char *argv[]) {
 				p--;
 			}
 
-			ll res = Chebyshev(x,y,souteix + dx[souteid],souteiy + dy[souteid]);
-			reactive_write(to_string(res));
+			ll res = Chebyshev(x,y,souteix + dx[souteid] * i,souteiy + dy[souteid] * i);
+			reactive_write(to_string(res)+ "\n");
+			
 
 			//矛盾する例を消去
 			set<vector<ll>> nextfans;
@@ -175,11 +174,10 @@ int main(int argc, char *argv[]) {
 			}
 			fans=nextfans;
 		}
+
 		query = reactive_read();
-		reactive_write("-1");
-		cout << "WA" << endl;
-		reactive_end();
-		return 0;
+		reactive_write("-1\n");
 	}
+	reactive_end();
     return 0;
 }
