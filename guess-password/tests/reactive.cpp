@@ -56,16 +56,16 @@ int main(int argc, char *argv[]) {
         cout << "AC" << endl;
         reactive_end();
     }
-    // else {
-    //     cout << "WA" << endl;
+     else {
+         cout << "WA" << endl;
 
     //     if (found) {
     //         cerr << "Expected: " << s << endl;
     //         cerr << "Received: " << ans << endl;
     //     }
     //     else { cerr << "Query limit exceeded" << endl; }
-    //     reactive_end();
-    // }
+         reactive_end();
+     }
 
     return 0;
 }
