@@ -10,28 +10,11 @@ void make(ll num,string name,ll MIN_N,ll MAX_N);
 //メイン
 int main(int argc, char* argv[]){
 	registerGen(argc, argv, 1);
-	make(1,"sample_",4,4);
-	make(30,"random_",14,996);
-	make(1,"hand1_",1,1);
-	make(1,"hand2_",2,2);
-	make(1,"hand3_",3,3);
-	make(1,"hand4_",5,5);
-	make(1,"hand5_",6,6);
-	make(1,"hand6_",7,7);
-	make(1,"hand7_",8,8);
-	make(1,"hand8_",9,9);
-	make(1,"hand9_",10,10);
-	make(1,"hand10_",11,11);
-	make(1,"hand11_",12,12);
-	make(1,"hand12_",13,13);
-	make(1,"hand13_",997,997);
-	make(1,"hand14_",998,998);
-	make(1,"hand15_",999,999);
-	make(1,"hand16_",1000,1000);
-	make(1,"hand17_",17,17);
-	make(1,"hand18_",19,19);
-	make(1,"hand19_",23,23);
-	
+	make(1,"sample_",5,5);
+	make(1,"sample2_",1,1);
+	make(1,"sample3_",20250426,20250426);
+	make(40,"random_",1,1000000000);
+	make(1,"Hand_",998244353,998244353);
 	return 0;
 }
 
