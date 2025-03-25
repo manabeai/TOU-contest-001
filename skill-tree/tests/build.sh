@@ -1,4 +1,4 @@
 #!/bin/bash
 
-g++ -std=c++23 -O2 -Wall -Wextra -fsplit-stack judge.cpp -o checker
+g++ -std=c++17 judge.cpp -o checker
 chmod 755 checker
