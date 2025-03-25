@@ -40,16 +40,17 @@ inline bool chmin(T &a, const T &b) {
 const ll MAX5 = 100000LL;
 const ll MAX9 = 1000000000LL;
 
-ll n, m, k, x;
-vll a;
+int main(int argc, char* argv[]) {
+	registerTestlibCmd(argc, argv);
 
-ll solve() {
-	n = inf.readLong(2, 2 * MAX5, "n");
-	m = inf.readLong(1, min(n * (n - 1) / 2, 2 * MAX5), "m");
-	k = inf.readLong(1, n, "k");
-	x = inf.readLong(1, n, "x");
+	// ll answer = solve();
+	
+	ll n = inf.readLong(2, 2 * MAX5, "n");
+	ll m = inf.readLong(1, min(n * (n - 1) / 2, 2 * MAX5), "m");
+	ll k = inf.readLong(1, n, "k");
+	ll x = inf.readLong(1, n, "x");
 	--x;
-	a.resize(n);
+	vll a(n);
 	rep(i, n) a[i] = inf.readLong(1, MAX9, "a[i]");
 	unordered_set<ll> starts;
 	rep(i, k) {
@@ -65,44 +66,22 @@ ll solve() {
 		--u, --v;
 		g[v].push_back(u);
 	}
-
-
-
-	// 最小コスト
-	vector<ll> dp(n, INF);
-	auto dfs = [&](auto self, ll u) -> ll {
-		if (dp[u] != INF) {
-			return dp[u];
-		}
-		if (starts.count(u)) {
-			return dp[u] = a[u];
-		}
-
-		ll minCost = INF;
-		for (ll v : g[u]) {
-			ll cost = self(self, v);
-			chmin(minCost, cost);
-		}
-
-		if (minCost == INF) return INF;
-
-		return dp[u] = minCost + a[u];
-	};
-
-	dfs(dfs, x);
-
-	return dp[x] != INF ? dp[x] : -1;
-}
-
-
-
-
-int main(int argc, char* argv[]) {
-	registerTestlibCmd(argc, argv);
-
-	ll answer = solve();
 	
+	// 想定解
+	ll answer = 0;
+	ll ans_size = ans.readLong(-1, n, "answer");
+	if (ans_size == -1) {
+		answer = -1;
+	}
+	else {
+		rep(i, ans_size) {
+			ll next = ans.readLong(1, n, "answer");
+			--next;
+			answer += a[next];
+		}
+	}
 
+	// 出力
 	ll output_ans = 0;
 	ll output_size = ouf.readLong(-1, n, "output");
 	if (output_size == -1) {
