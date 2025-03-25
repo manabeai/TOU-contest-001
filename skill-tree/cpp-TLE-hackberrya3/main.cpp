@@ -130,13 +130,14 @@ int solve() {
 
     sort(all(minPath));
 
-    vll ans = minPath.at(0);
-    rep(i, ans.size()) ans.at(i)++;
-
-	if (ans.size() == 0) {
+	if (minPath.size() == 0) {
 		cout << -1 << endl;
 		return 0;
 	}
+
+    vll ans = minPath.at(0);
+    rep(i, ans.size()) ans.at(i)++;
+
 
 	cout << ans.size() << endl;
     cout << ans << endl;
