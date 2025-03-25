@@ -117,35 +117,10 @@ int solve() {
 	ll n;
 	cin >> n;
 
-	vector<char> ans(n, 0);
-	rep(i, n) {
-		char l = 'a' - 1, r = 'z' + 1;
-		while (r - l > 2) {
-			char m = (l + r) / 2;
-			cout << i + 1 << " " << m << endl;
-
-			char res;
-			cin >> res;
-			if (res == '!') return 0;
-			if (res == '=') {
-				ans[i] = m;
-				break;
-			}
-			else if (res == '<') {
-				r = m;
-			}
-			else {
-				l = m;
-			}
-		}
-
-		if (ans[i] != 0) continue;
-		if (r - l == 2) ans[i] = l + 1;
-		else ans[i] = l;
-	}
-
-	rep(i, n) cout << ans[i];
-	cout << endl;
+	cout << "50000 a" << endl;
+	char res;
+	cin >> res;
+	assert(res == '!');
 
 	return 0;
 }
