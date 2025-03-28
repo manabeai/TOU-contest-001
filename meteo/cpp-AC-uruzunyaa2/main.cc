@@ -479,6 +479,7 @@ int main(){
 				//その遷移になる確率
 				double kakuritu=dp[i][b];
 				rep(j,w){
+					if(!((1<<j)&bit))continue;
 					if((1<<j)&tmp)kakuritu*=1.0-a[j][i+1];
 					else kakuritu*=a[j][i+1];
 				}
