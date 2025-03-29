@@ -1,0 +1,23 @@
+# -*- coding: utf-8; mode: python -*-
+
+## Input generators.
+#c_generator(src='generator.c')
+cxx_generator(src='generator.cc', flags=['-std=c++23'], dependency=['testlib.h'])
+#java_generator(src='Generator.java', encoding='UTF-8', mainclass='Generator')
+# script_generator(src='generator.py')
+
+## Input validators.
+#c_validator(src='validator.c')
+#cxx_validator(src='validator.cpp', flags=['-std=c++23'], dependency=['testlib.h'])
+#java_validator(src='Validator.java', encoding='UTF-8', mainclass='Validator')
+# script_validator(src='validator.py')
+
+## Output judges.
+#c_judge(src='judge.c')
+cxx_judge(src='judge.cc', flags=['-std=c++23'], dependency=['testlib.h'], variant=testlib_judge_runner)
+#java_judge(src='Judge.java', encoding='UTF-8', mainclass='Judge')
+#script_judge(src='judge.py')
+
+cxx_reactive(src='reactive.cc', flags=['-std=c++23'], dependency=['reactive.hpp'], variant=kupc_reactive_runner)
+
+subtask_testset(name='all', score=100, input_patterns=['*.in'])
