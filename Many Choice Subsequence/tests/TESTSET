@@ -14,9 +14,8 @@ cxx_generator(src='generator.cc', flags=['-std=c++23'], dependency=['testlib.h']
 
 ## Output judges.
 #c_judge(src='judge.c')
-cxx_judge(src='judge.cc', dependency=['testlib.h'], variant=testlib_judge_runner)
+#cxx_judge(src='judge.cc')
 #java_judge(src='Judge.java', encoding='UTF-8', mainclass='Judge')
 #script_judge(src='judge.py')
 #subtask_testset(name='task1', score=10, input_patterns=['task1_*.in'])
-
 subtask_testset(name='all', score=100, input_patterns=['*.in'])
