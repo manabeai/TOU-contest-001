@@ -126,6 +126,7 @@ int solve() {
 
 			char res;
 			cin >> res;
+			if (res == '!') return 0;
 			if (res == '=') {
 				ans[i] = m;
 				break;
