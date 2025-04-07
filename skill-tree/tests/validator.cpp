@@ -1,5 +1,6 @@
 #include <stack>
 #include <vector>
+#include <unordered_set>
 using namespace std;
 using ll = long long;
 #define rep(i, n) for (ll i = 0; i < (n); ++i)
@@ -63,8 +64,12 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
+	unordered_set<int> starts;
 	rep(i, k) {
-		inf.readInt(1, n, "s_i");
+		ll s = inf.readInt(1, n, "s_i");
+		ensure(starts.count(s) == 0);
+		starts.insert(s);
+
 		if (i == k - 1) {
 			inf.readEoln();
 		} else {
