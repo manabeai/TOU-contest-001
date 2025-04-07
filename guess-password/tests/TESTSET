@@ -18,6 +18,6 @@ cxx_judge(src='judge.cpp', flags=['-std=c++23'], dependency=['testlib.h'], varia
 #java_judge(src='Judge.java', encoding='UTF-8', mainclass='Judge')
 #script_judge(src='judge.py')
 
-cxx_reactive(src='reactive.cpp', flags=['-std=c++23'], dependency=['reactive.hpp'], variant=kupc_reactive_runner)
+cxx_reactive(src='reactive.cpp', flags=['-std=c++23', '-DDEBUG'], dependency=['reactive.hpp'], variant=kupc_reactive_runner)
 
 subtask_testset(name='all', score=100, input_patterns=['*.in'])
