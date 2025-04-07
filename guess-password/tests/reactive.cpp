@@ -17,6 +17,20 @@ int wa(string msg) {
 	return 0;
 }
 
+void write(string s) {
+	reactive_write(s + "\n");
+#ifdef DEBUG
+	cerr << "In : " << s << endl;
+#endif
+}
+string read() {
+	string s = reactive_read();
+#ifdef DEBUG
+	cerr << "Out : " << s;
+#endif
+	return s;
+}
+
 int main(int argc, char *argv[]) {
     reactive_start(argv[1]);
 
@@ -25,13 +39,13 @@ int main(int argc, char *argv[]) {
     string s;
     cin >> s;
 
-    reactive_write(to_string(n) + "\n");
+    write(to_string(n));
 
     int left = MAX_Q;
     bool found = false;
     string ans;
     while (left >= 0 && !found) {
-        string query = reactive_read();
+        string query = read();
         if (regex_match(query, regex("^!\\s+[a-z]*\\s+$"))) {
             found = true;
 			char tmp[251];
@@ -56,9 +70,9 @@ int main(int argc, char *argv[]) {
             return wa("Query out of range: " + query);
         }
 
-        if (s[x] == c) { reactive_write("=\n"); }
-        else if (s[x] < c) { reactive_write("<\n"); }
-        else { reactive_write(">\n"); }
+        if (s[x] == c) { write("="); }
+        else if (s[x] < c) { write("<"); }
+        else { write(">"); }
     }
 
     while (ans.back() == '\n' || ans.back() == '\r' || ans.back() == '\t' || ans.back() == ' ')
