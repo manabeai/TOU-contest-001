@@ -43,9 +43,9 @@
 
 <p>クエリに対して、<code>&lt;</code><code>=</code><code>&gt;</code><code>#</code> のいずれかが返ってきます。それぞれ以下であることを表しています。</p>
 <ul>
-  <li><code>&lt;</code> : \( S \) の \( X \) 文字目が \( C \) より小さい</li>
-  <li><code>=</code> : \( S \) の \( X \) 文字目は \( C \) と等しい</li>
-  <li><code>&gt;</code> : \( S \) の \( X \) 文字目が \( C \) より大きい</li>
+  <li><code>&lt;</code> : \( S \) の \( X \) 文字目が \( C \) より小さい。</li>
+  <li><code>=</code> : \( S \) の \( X \) 文字目は \( C \) と等しい。</li>
+  <li><code>&gt;</code> : \( S \) の \( X \) 文字目が \( C \) より大きい。</li>
   <li><code>#</code> : クエリの条件に満たない出力だった。またはクエリの最大数を超過した。</li>
 </ul>
 
