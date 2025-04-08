@@ -17,7 +17,7 @@ regex regCheck("^\\d+\\s+\\d+\\s+$");
 string myRead() {
     string s = reactive_read();
 #ifdef DEBUG
-    cerr << s << endl;
+    cerr << s;
 #endif
     return s;
 }
@@ -25,8 +25,9 @@ string myRead() {
 void myWrite(string s) {
     reactive_write(s);
 #ifdef DEBUG
-    cerr << s << endl;
+    cerr << s;
 #endif
+	return;
 }
 
 ll Chebyshev(ll x1,ll y1,ll x2,ll y2){
@@ -137,15 +138,13 @@ int type2(){
 	}
 	//2回目以降のクエリ
 	for(ll i=2;i<=MAX_Q;i++){
+		//不正の文字が紛れていたらWA
 		query = myRead();
-		sscanf(query.c_str(), "%lld %lld", &x ,&y);
+		if(!regex_match(query,regCheck))return WA();
 		
-		if(x<0||MAX_XY<x||y<0||MAX_XY<y){
-			myWrite("-1\n");
-			cout << "WA" << endl;
-			reactive_end();
-			return 0;
-		}
+		//数値制約を満たしていなかったらWA
+		sscanf(query.c_str(), "%lld %lld", &x ,&y);
+		if(x<0||MAX_XY<x||y<0||MAX_XY<y)return WA();
 		
 		//答えの物があるのなら
 		bool flag =false;
@@ -202,7 +201,7 @@ int type2(){
 	}
 	
 	//クエリ回数超えたらWA
-	string query = myRead();
+	query = myRead();
 	return WA();
 }
 
