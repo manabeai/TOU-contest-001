@@ -458,7 +458,7 @@ int main(){
 		ll mx=25,mn=0;
 		while(mn!=mx){
 			ll mid=(mx+mn)/2;
-			cout<<i+1<<" "<<(char)('a'+mid)<<endl;
+			cout<<"? "<<i+1<<" "<<(char)('a'+mid)<<endl;
 			string res;
 			cin>>res;
 			if(res=="="){
@@ -471,6 +471,6 @@ int main(){
 		}
 		ans[i]='a'+mx;
 	}
-	cout<<ans<<endl;
+	cout<<"! "<<ans<<endl;
 	return 0;
 }
