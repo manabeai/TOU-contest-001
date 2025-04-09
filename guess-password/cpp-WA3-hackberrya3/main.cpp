@@ -120,7 +120,7 @@ int solve() {
 	cout << "50000 a" << endl;
 	char res;
 	cin >> res;
-	assert(res == '!');
+	assert(res == '#');
 
 	return 0;
 }
