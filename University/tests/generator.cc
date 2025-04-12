@@ -10,8 +10,8 @@ void make(ll num,string name,ll MIN_N,ll MAX_N);
 //メイン
 int main(int argc, char* argv[]){
 	registerGen(argc, argv, 1);
-	make(1,"sample_",2000,2000);
-	make(1,"sample2_",2022,2022);
+	make(1,"001sample_",2000,2000);
+	make(1,"002sample2_",2022,2022);
 	make(20,"random_",2000,3000);
 	return 0;
 }

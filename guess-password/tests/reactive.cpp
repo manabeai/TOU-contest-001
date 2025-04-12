@@ -21,28 +21,35 @@ int main(int argc, char *argv[]) {
     string ans;
     while (left >= 0 && !found) {
         string query = reactive_read();
-        if ('a' <= query[0] && query[0] <= 'z') {
-            found = true;
-            ans = query;
-            break;
-        }
-
-		if (left == 0) {
+		if (3 <= query.size() && query[0] == '!' && query[1] == ' ') {
+			found = true;
+			ans = query.substr(2);
 			break;
 		}
 
-		--left;
-        if (query[0] < '0' || '9' < query[0]) {
+        if (left == 0) { break; }
+
+        --left;
+        if (query.size() < 5 || query[0] != '?' || query[1] != ' ') {
             cout << "WA" << endl;
             // cerr << "Invalid query: " << query << endl;
+			reactive_write("#\n");
             reactive_end();
             return 0;
         }
 
         int x;
         char c;
-        sscanf(query.c_str(), "%d %c", &x, &c);
+        sscanf(query.c_str(), "? %d %c", &x, &c);
         --x;
+
+		if (x < 0 || n <= x) {
+			cout << "WA" << endl;
+			// cerr << "Invalid query: " << query << endl;
+			reactive_write("#\n");
+			reactive_end();
+			return 0;
+		}
 
         if (s[x] == c) { reactive_write("=\n"); }
         else if (s[x] < c) { reactive_write("<\n"); }
@@ -56,16 +63,16 @@ int main(int argc, char *argv[]) {
         cout << "AC" << endl;
         reactive_end();
     }
-     else {
-         cout << "WA" << endl;
-
-    //     if (found) {
-    //         cerr << "Expected: " << s << endl;
-    //         cerr << "Received: " << ans << endl;
-    //     }
-    //     else { cerr << "Query limit exceeded" << endl; }
-         reactive_end();
-     }
+    else {
+        cout << "WA" << endl;
+        //     if (found) {
+        //         cerr << "Expected: " << s << endl;
+        //         cerr << "Received: " << ans << endl;
+        //     }
+        //     else { cerr << "Query limit exceeded" << endl; }
+		reactive_write("#\n");
+        reactive_end();
+    }
 
     return 0;
 }
