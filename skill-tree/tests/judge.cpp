@@ -135,5 +135,7 @@ int main(int argc, char* argv[]) {
 	if (output_ans != answer) {
 		quitf(_wa, "Expected: %lld, Got: %lld", answer, output_ans);
 	}
+
+	if (!ouf.seekEof()) quitf(_wa, "Participant output contains extra tokens");
 	quitf(_ok, "Accepted: %lld", answer);
 }
