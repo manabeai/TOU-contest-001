@@ -59,12 +59,12 @@ int main(int argc, char* argv[]) {
 		starts.insert(s);
 	}
 
-	vvll g(n, vll());
+	vector<unordered_set<ll>> g(n, unordered_set<ll>());
 	rep(i, m) {
 		ll u = inf.readLong(1, n, "u");
 		ll v = inf.readLong(1, n, "v");
 		--u, --v;
-		g[v].push_back(u);
+		g[u].insert(v);
 	}
 	
 	// 想定解
@@ -74,10 +74,29 @@ int main(int argc, char* argv[]) {
 		answer = -1;
 	}
 	else {
+		ll prev = -1;
 		rep(i, ans_size) {
 			ll next = ans.readLong(1, n, "answer");
 			--next;
+
+			if (i == 0) {
+				if (!starts.count(next)) {
+					quitf(_wa, "ANS : First node is not in the starting set");
+				}
+			}
+			else if (i == ans_size - 1) {
+				if (next != x) {
+					quitf(_wa, "ANS : Last node is not x");
+				}
+			}
+			else {
+				if (!g[prev].count(next)) {
+					quitf(_wa, "ANS : Edge from %lld to %lld does not exist", prev + 1, next + 1);
+				}
+			}
+
 			answer += a[next];
+			prev = next;
 		}
 	}
 
@@ -88,15 +107,35 @@ int main(int argc, char* argv[]) {
 		output_ans = -1;
 	}
 	else {
+		ll prev = -1;
 		rep(i, output_size) {
 			ll next = ouf.readLong(1, n, "output");
 			--next;
+
+			if (i == 0) {
+				if (!starts.count(next)) {
+					quitf(_wa, "First node is not in the starting set");
+				}
+			}
+			else if (i == output_size - 1) {
+				if (next != x) {
+					quitf(_wa, "Last node is not x");
+				}
+			}
+			else {
+				if (!g[prev].count(next)) {
+					quitf(_wa, "Edge from %lld to %lld does not exist", prev + 1, next + 1);
+				}
+			}
 			output_ans += a[next];
+			prev = next;
 		}
 	}
 
 	if (output_ans != answer) {
 		quitf(_wa, "Expected: %lld, Got: %lld", answer, output_ans);
 	}
+
+	if (!ouf.seekEof()) quitf(_wa, "Participant output contains extra tokens");
 	quitf(_ok, "Accepted: %lld", answer);
 }
