@@ -117,7 +117,7 @@ int solve() {
 	ll n;
 	cin >> n;
 
-	cout << "? 50000 a" << endl;
+	cout << "50000 a" << endl;
 	char res;
 	cin >> res;
 	assert(res == '#');

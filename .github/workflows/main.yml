@@ -28,6 +28,11 @@ jobs:
         python -m pip install --upgrade pip
         pip install six
 
+    - name: Install Boost library
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libboost-all-dev
+
     - name: Run tests
       run: |
         python rime/rime.py test
@@ -103,15 +108,6 @@ jobs:
               mv judgedata ../generated/"$(basename "$dir")"
               rm -rf ../judgedata
             fi
-
-            files=("reactive.cpp" "reactive.hpp" "judge.cpp" "judge.cc" "statement-aoj" "build.sh" "testlib.h", "reactive.cc")
-            # 上記のファイルが存在する場合、生成物をコピー
-            for file in "${files[@]}"; do
-              if [ -f "$file" ]; then
-                echo "Moving $file to ../generated/$(basename "$dir")"
-                cp "$file" "../generated/$(basename "$dir")/"
-              fi
-            done
             cd ..
           fi
         done

@@ -1,35 +1,10 @@
 #include <iostream>
-#include <regex>
 using namespace std;
 
 #include "reactive.hpp"
 
 const int MAX_N = 250;
 const int MAX_Q = 1000;
-
-int wa(string msg) {
-	cout << "WA" << endl;
-#ifdef DEBUG
-	cerr << msg << endl;
-#endif
-	reactive_write("#\n");
-	reactive_end();
-	return 0;
-}
-
-void write(string s) {
-	reactive_write(s + "\n");
-#ifdef DEBUG
-	cerr << "In : " << s << endl;
-#endif
-}
-string read() {
-	string s = reactive_read();
-#ifdef DEBUG
-	cerr << "Out : " << s;
-#endif
-	return s;
-}
 
 int main(int argc, char *argv[]) {
     reactive_start(argv[1]);
@@ -39,26 +14,28 @@ int main(int argc, char *argv[]) {
     string s;
     cin >> s;
 
-    write(to_string(n));
+    reactive_write(to_string(n) + "\n");
 
     int left = MAX_Q;
     bool found = false;
     string ans;
     while (left >= 0 && !found) {
-        string query = read();
-        if (regex_match(query, regex("^!\\s+[a-z]*\\s+$"))) {
-            found = true;
-			char tmp[251];
-			sscanf(query.c_str(), "! %250s", &tmp[0]);
-			ans = tmp;
-            break;
-        }
+        string query = reactive_read();
+		if (3 <= query.size() && query[0] == '!' && query[1] == ' ') {
+			found = true;
+			ans = query.substr(2);
+			break;
+		}
 
         if (left == 0) { break; }
 
         --left;
-        if (!regex_match(query, regex("^\\?\\s+\\d+\\s+[a-z]\\s+$"))) {
-            return wa("Invalid query: " + query);
+        if (query.size() < 5 || query[0] != '?' || query[1] != ' ') {
+            cout << "WA" << endl;
+            // cerr << "Invalid query: " << query << endl;
+			reactive_write("#\n");
+            reactive_end();
+            return 0;
         }
 
         int x;
@@ -66,23 +43,36 @@ int main(int argc, char *argv[]) {
         sscanf(query.c_str(), "? %d %c", &x, &c);
         --x;
 
-        if (x < 0 || n <= x) {
-            return wa("Query out of range: " + query);
-        }
+		if (x < 0 || n <= x) {
+			cout << "WA" << endl;
+			// cerr << "Invalid query: " << query << endl;
+			reactive_write("#\n");
+			reactive_end();
+			return 0;
+		}
 
-        if (s[x] == c) { write("="); }
-        else if (s[x] < c) { write("<"); }
-        else { write(">"); }
+        if (s[x] == c) { reactive_write("=\n"); }
+        else if (s[x] < c) { reactive_write("<\n"); }
+        else { reactive_write(">\n"); }
     }
 
-    while (ans.back() == '\n' || ans.back() == '\r' || ans.back() == '\t' || ans.back() == ' ')
+    while (ans.back() == '\n' || ans.back() == '\r' || ans.back() == ' ')
         ans.pop_back();
 
     if (found && ans == s) {
         cout << "AC" << endl;
-		reactive_end();
-		return 0;
+        reactive_end();
+    }
+    else {
+        cout << "WA" << endl;
+        //     if (found) {
+        //         cerr << "Expected: " << s << endl;
+        //         cerr << "Received: " << ans << endl;
+        //     }
+        //     else { cerr << "Query limit exceeded" << endl; }
+		reactive_write("#\n");
+        reactive_end();
     }
 
-	return wa(found ? "Expected: " + s + "\nReceived: " + ans : "Query limit exceeded");
+    return 0;
 }

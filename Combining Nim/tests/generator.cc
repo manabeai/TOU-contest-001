@@ -8,6 +8,7 @@ using namespace std;
 
 void make(ll num,string name,ll MIN_N,ll MAX_N,ll MIN_A,ll MAX_A);
 
+
 //メイン
 int main(int argc, char* argv[]) {
 	registerGen(argc, argv, 1);
