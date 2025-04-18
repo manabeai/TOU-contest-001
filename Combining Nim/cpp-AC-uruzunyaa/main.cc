@@ -51,7 +51,7 @@ int main(){
 
 	//後手必勝の場合
 	if(n%2==0&&xr==0){
-		cout<<"Chappo"<<endl;
+		cout<<"Uruzunyaa"<<endl;
 		cout<<sum<<endl;
 		return 0;
 	}
@@ -61,7 +61,7 @@ int main(){
 		//最初の一手で取れる最大数を計算する
 		ll mx=0;
 		rep(i,n)mx=max(mx,a[i]-(xr^a[i]));
-		cout<<"Talk"<<endl;
+		cout<<"Talc"<<endl;
 		cout<<sum-mx+1<<endl;
 		return 0;
 	}
@@ -165,7 +165,7 @@ int main(){
 	}
 	
 	//奇数の時は先手必勝
-	cout<<"Talk"<<endl;
+	cout<<"Talc"<<endl;
 
 	//山減少分は元々取るはずだった1個としてカウントしてないため、そのまま引けばOK
 	cout<<sum-mx<<endl;
