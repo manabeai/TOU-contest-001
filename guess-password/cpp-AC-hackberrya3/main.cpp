@@ -122,11 +122,11 @@ int solve() {
 		char l = 'a' - 1, r = 'z' + 1;
 		while (r - l > 2) {
 			char m = (l + r) / 2;
-			cout << i + 1 << " " << m << endl;
+			cout << "? " << i + 1 << " " << m << endl;
 
 			char res;
 			cin >> res;
-			if (res == '!') return 0;
+			if (res == '#') return 0;
 			if (res == '=') {
 				ans[i] = m;
 				break;
@@ -144,6 +144,7 @@ int solve() {
 		else ans[i] = l;
 	}
 
+	cout << "! ";
 	rep(i, n) cout << ans[i];
 	cout << endl;
 

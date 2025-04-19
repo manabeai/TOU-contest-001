@@ -28,6 +28,11 @@ jobs:
         python -m pip install --upgrade pip
         pip install six
 
+    - name: Install Boost library
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libboost-all-dev
+
     - name: Run tests
       run: |
         python rime/rime.py test
