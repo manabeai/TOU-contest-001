@@ -119,8 +119,8 @@ int solve() {
 
 	vector<char> ans(n, 0);
 	rep(i, n) {
-		char l = 'a' - 1, r = 'z' + 1;
-		while (r - l > 1) {
+		char l = 'a', r = 'z';
+		while (r - l > 0) {
 			char m = (l + r) / 2;
 			cout << "? " << i + 1 << " " << m << endl;
 
