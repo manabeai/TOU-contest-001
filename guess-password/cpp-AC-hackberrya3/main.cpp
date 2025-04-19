@@ -127,16 +127,9 @@ int solve() {
 			char res;
 			cin >> res;
 			if (res == '#') return 0;
-			if (res == '=') {
-				ans[i] = m;
-				break;
-			}
-			else if (res == '<') {
-				r = m - 1;
-			}
-			else {
-				l = m + 1;
-			}
+			if (res == '=') { ans[i] = m; break; }
+			else if (res == '<') r = m - 1;
+			else l = m + 1;
 		}
 
 		if (ans[i] != 0) continue;
