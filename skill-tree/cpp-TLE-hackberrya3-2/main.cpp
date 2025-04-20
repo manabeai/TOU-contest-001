@@ -113,7 +113,7 @@ int solve() {
 	
 
 	vector<PLL> dist(n, {INF, -1});
-	priority_queue<PLL, vector<PLL>, greater<PLL>> pq;
+	priority_queue<PLL> pq;
 	for (auto s : starts) {
 		pq.push({s, a[s]});
 		dist[s] = {a[s], -1};
