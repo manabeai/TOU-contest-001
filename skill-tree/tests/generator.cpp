@@ -17,7 +17,6 @@ void generateStarGraph(int seq);
 void generateMaxHeap();
 void generateMaxHeap2();
 void generateMaxHeap3();
-void generateMaxHeap4();
 
 int main(int argc, char *argv[]) {
     registerGen(argc, argv, 1);
@@ -33,7 +32,6 @@ int main(int argc, char *argv[]) {
 	generateMaxHeap();
 	generateMaxHeap2();
 	generateMaxHeap3();
-	generateMaxHeap4();
 
 	return 0;
 }
@@ -333,51 +331,6 @@ void generateMaxHeap2() {
 
 void generateMaxHeap3() {
     ofstream file = ofstream("max_heap3.in");
-
-	ll n = MAX_N - 1;
-	ll x = 2;
-	ll k = 1;
-
-	vector<ll> a(n, MIN_Ai);
-	loop(i, 1, n / 2) {
-		a[i] = MIN_Ai + (i - 1) * 10;
-	}
-
-	vector<ll> s(k);
-	s[0] = 1;
-
-	vector<pair<ll, ll>> edges;
-	loop(i, 1, n / 2) {
-		edges.push_back({i + 1, i});
-		edges.push_back({i + 7, i});
-	}
-	edges.push_back({0, n / 2});
-	edges.push_back({0, n / 2 + 7});
-
-
-	file << n << " " << edges.size() << " " << k << " " << x << "\n";
-
-	rep(i, n) {
-		file << a[i];
-		if (i != n - 1) file << " ";
-	}
-	file << "\n";
-
-	rep(i, k) {
-		file << s[i];
-		if (i != k - 1) file << " ";
-	}
-	file << "\n";
-
-	for (auto [u, v] : edges) {
-		file << u + 1 << " " << v + 1 << "\n";
-	}
-
-	file << flush;
-}
-
-void generateMaxHeap4() {
-    ofstream file = ofstream("max_heap4.in");
 
 	ll n = 133332 - 1;
 	ll x = 2;

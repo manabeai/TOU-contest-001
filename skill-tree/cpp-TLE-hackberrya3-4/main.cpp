@@ -1,4 +1,4 @@
-// priority_queueの優先順位で頂点とコストが逆になっている + 逆順
+// priority_queueの優先順位で頂点とコストが逆になっている
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
@@ -114,7 +114,7 @@ int solve() {
 	
 
 	vector<PLL> dist(n, {INF, -1});
-	priority_queue<PLL> pq;
+	priority_queue<PLL, vector<PLL>, greater<PLL>> pq;
 	for (auto s : starts) {
 		pq.push({s, a[s]});
 		dist[s] = {a[s], -1};
