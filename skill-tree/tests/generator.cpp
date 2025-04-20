@@ -2,6 +2,7 @@
 #include <fstream>
 #include <queue>
 #include <set>
+#include <string>
 #include <vector>
 using namespace std;
 using ll = long long;
@@ -17,6 +18,8 @@ void generateStarGraph(int seq);
 void generateMaxHeap();
 void generateMaxHeap2();
 void generateMaxHeap3();
+void generateAddAfterPop(int cnt);
+void generateSameCost();
 
 int main(int argc, char *argv[]) {
     registerGen(argc, argv, 1);
@@ -32,6 +35,11 @@ int main(int argc, char *argv[]) {
 	generateMaxHeap();
 	generateMaxHeap2();
 	generateMaxHeap3();
+
+	generateAddAfterPop(2);
+	generateAddAfterPop(3);
+
+	generateSameCost();
 
 	return 0;
 }
@@ -229,7 +237,7 @@ void generateStarGraph(int seq) {
 void generateMaxHeap() {
     ofstream file = ofstream("max_heap.in");
 
-	ll n = MAX_N / 2;
+	ll n = 150000 + 1;
 	assert(n % 3 == 1);
 	ll x = 1;
 	ll k = 1;
@@ -278,7 +286,7 @@ void generateMaxHeap() {
 void generateMaxHeap2() {
     ofstream file = ofstream("max_heap2.in");
 
-	ll n = MAX_N / 2;
+	ll n = 150000 + 1;
 	assert(n % 3 == 1);
 	ll x = (n - 1) / 3 + 2;
 	ll k = 1;
@@ -375,3 +383,99 @@ void generateMaxHeap3() {
 	file << flush;
 }
 
+void generateAddAfterPop(int cnt) {
+	ofstream file = ofstream("add_after_pop" + to_string(cnt) + ".in");
+
+	ll DEF_N = 133332;
+	// ll DEF_N = 24;
+	ll n = DEF_N + cnt + 1;
+	assert(DEF_N % (2 * cnt) == 0);
+	ll x = n;
+	ll k = 1;
+
+	vector<ll> a(n, MIN_Ai);
+	vector<ll> s(k);
+	s[0] = 1;
+
+	vector<pair<ll, ll>> edges;
+
+	ll size = (n - (cnt + 1)) / (2 * cnt);
+	ll offset = 1;
+	rep(_, cnt) {
+		rep(i, size) {
+			a[i + offset] = i + 1;
+			a[i + offset + size] = 2 * size - 2 * i;
+		}
+
+		rep(i, size) {
+			edges.push_back({offset - 1, offset + i});
+			edges.push_back({offset + i, offset + i + size});
+			edges.push_back({offset + i + size, offset + 2 * size});
+		}
+
+		offset += 2 * size + 1;
+	}
+
+
+
+	file << n << " " << edges.size() << " " << k << " " << x << "\n";
+
+	rep(i, n) {
+		file << a[i];
+		if (i != n - 1) file << " ";
+	}
+	file << "\n";
+
+	rep(i, k) {
+		file << s[i];
+		if (i != k - 1) file << " ";
+	}
+	file << "\n";
+
+	for (auto [u, v] : edges) {
+		file << u + 1 << " " << v + 1 << "\n";
+	}
+	file << flush;
+}
+
+void generateSameCost() {
+	ofstream file = ofstream("same_cost.in");
+
+	ll n = 150000 + 1;
+	assert((n - 1) % 3 == 0);
+	assert(n >= 4);
+	ll k = 1;
+	ll x = n;
+
+	vector<ll> a(n, MAX_Ai);
+	vector<ll> s(k);
+	s[0] = 1;
+
+	vector<pair<ll, ll>> edges;
+	for (ll i = n - 1; i >= 3; i -= 3) {
+		edges.push_back({i - 1, i});
+		edges.push_back({i - 2, i});
+		edges.push_back({i - 3, i - 1});
+		edges.push_back({i - 3, i - 2});
+	}
+
+
+
+	file << n << " " << edges.size() << " " << k << " " << x << "\n";
+	rep(i, n) {
+		file << a[i];
+		if (i != n - 1) file << " ";
+	}
+	file << "\n";
+
+	rep(i, k) {
+		file << s[i];
+		if (i != k - 1) file << " ";
+	}
+	file << "\n";
+
+	for (auto [u, v] : edges) {
+		file << u + 1 << " " << v + 1 << "\n";
+	}
+	file << flush;
+}
