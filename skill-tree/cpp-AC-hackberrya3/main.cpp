@@ -120,7 +120,7 @@ int solve() {
 	}
 	while (!pq.empty()) {
 		auto [cost, v] = pq.top(); pq.pop();
-		if (dist[v].first != cost) continue;
+		if (dist[v].first < cost) continue;
 
 		for (auto nv : g[v]) {
 			if (cost + a[nv] < dist[nv].first) {

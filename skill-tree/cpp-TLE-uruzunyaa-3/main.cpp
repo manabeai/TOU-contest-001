@@ -1,4 +1,4 @@
-//#pragma GCC optimize("O3")
+#pragma GCC optimize("O3")
 #include<bits/stdc++.h>
 //#include<boost/multiprecision/cpp_int.hpp>
 using namespace std;
@@ -29,8 +29,8 @@ int main(){
 		cin>>s;
 		s--;
 		
-		pq.push({0,s});
-		cost[s]={0,-1};
+		pq.push({-a[s],s});
+		cost[s]={a[s],-1};
 	}
 
 	vvl g(n);
@@ -43,13 +43,15 @@ int main(){
 
 
 	while(!pq.empty()){
-		ll now = -pq.top().first;
+		ll check=-pq.top().first;
 		ll tmp=pq.top().second;
 		pq.pop();
-		if(now!=cost[tmp].first)continue;
+		if(check>cost[tmp].first)continue;
 		rep(i,g[tmp].size()){
-			cost[g[tmp][i]]=min(make_pair(now+a[tmp],tmp),cost[g[tmp][i]]);
-			pq.push({-cost[g[tmp][i]].first,g[tmp][i]});
+			if(cost[g[tmp][i]].first>=cost[tmp].first+a[g[tmp][i]]){
+				cost[g[tmp][i]]={cost[tmp].first+a[g[tmp][i]],tmp};
+				pq.push({-cost[g[tmp][i]].first,g[tmp][i]});
+			}
 		}
 	}
 	if(cost[x].second==-2){
@@ -67,7 +69,5 @@ int main(){
 
 	cout<<ans.size()<<endl;
 	vdbg(ans);
-
-	//rep(i,n)cout<<cost[i].first<<" ";
 	return 0;
 }
