@@ -115,16 +115,16 @@ int solve() {
 	vector<PLL> dist(n, {INF, -1});
 	priority_queue<PLL, vector<PLL>, greater<PLL>> pq;
 	for (auto s : starts) {
-		pq.push({s, a[s]});
+		pq.push({a[s], s});
 		dist[s] = {a[s], -1};
 	}
 	while (!pq.empty()) {
-		auto [v, cost] = pq.top(); pq.pop();
+		auto [cost, v] = pq.top(); pq.pop();
 		if (dist[v].first != cost) continue;
 
 		for (auto nv : g[v]) {
 			if (cost + a[nv] < dist[nv].first) {
-				pq.push({nv, cost + a[nv]});
+				pq.push({cost + a[nv], nv});
 				dist[nv] = {cost + a[nv], v};
 			}
 		}

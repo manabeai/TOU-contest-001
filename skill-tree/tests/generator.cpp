@@ -17,9 +17,11 @@ void generateStarGraph(int seq);
 void generateMaxHeap();
 void generateMaxHeap2();
 void generateMaxHeap3();
+void generateMaxHeap4();
 
 int main(int argc, char *argv[]) {
     registerGen(argc, argv, 1);
+
     for (int i = 1; i <= 25; i++) {
         generateRandom(i);
     }
@@ -31,6 +33,8 @@ int main(int argc, char *argv[]) {
 	generateMaxHeap();
 	generateMaxHeap2();
 	generateMaxHeap3();
+	generateMaxHeap4();
+
 	return 0;
 }
 
@@ -227,27 +231,83 @@ void generateStarGraph(int seq) {
 void generateMaxHeap() {
     ofstream file = ofstream("max_heap.in");
 
-	ll n = 133332 - 1;
-	ll x = 2;
+	ll n = MAX_N / 2;
+	assert(n % 3 == 1);
+	ll x = 1;
 	ll k = 1;
 
 	vector<ll> a(n, MIN_Ai);
-	loop(i, 1, n / 2) {
-		a[i] = MIN_Ai + (i - 1) * 10;
+	for (ll i = 1; i < n; i += 3) {
+		a[i] = 10;
+	}
+	for (ll i = 0, j = 1; i < n; i += 3, j++) {
+		a[i] = MIN_Ai + j * 10;
+	}
+
+	vector<ll> s(k);
+	s[0] = n;
+
+	vector<pair<ll, ll>> edges;
+	for (ll i = 0; i <= n - 3; i += 3) {
+		edges.push_back({i + 1, i});
+		edges.push_back({i + 3, i + 1});
+		edges.push_back({i + 2, i});
+		edges.push_back({i + 3, i + 2});
+	}
+
+
+
+	file << n << " " << edges.size() << " " << k << " " << x << "\n";
+
+	rep(i, n) {
+		file << a[i];
+		if (i != n - 1) file << " ";
+	}
+	file << "\n";
+
+	rep(i, k) {
+		file << s[i];
+		if (i != k - 1) file << " ";
+	}
+	file << "\n";
+
+	for (auto [u, v] : edges) {
+		file << u + 1 << " " << v + 1 << "\n";
+	}
+
+	file << flush;
+}
+void generateMaxHeap2() {
+    ofstream file = ofstream("max_heap2.in");
+
+	ll n = MAX_N / 2;
+	assert(n % 3 == 1);
+	ll x = (n - 1) / 3 + 2;
+	ll k = 1;
+
+	vector<ll> a(n, MIN_Ai);
+	for (ll i = (n - 1) / 3 + 2; i < n; i += 2) {
+		a[i] = 10;
+	}
+	for (ll i = (n - 1) / 3 + 1, j = 1; i < n; i += 2, j++) {
+		a[i] = MIN_Ai + j * 10;
 	}
 
 	vector<ll> s(k);
 	s[0] = 1;
 
 	vector<pair<ll, ll>> edges;
-	loop(i, 1, n / 2) {
+	for (ll i = (n - 1) / 3 + 1, j = 1; i < n - 2; i += 2, j++) {
 		edges.push_back({i + 1, i});
-		edges.push_back({i + n / 2, i});
-		edges.push_back({i + 1, i + n / 2});
+		edges.push_back({i + 2, i + 1});
+		edges.push_back({j, i});
+		edges.push_back({i + 2, j});
 	}
-	edges.push_back({0, n / 2});
-	edges.push_back({0, n / 2 + n / 2});
-	edges.push_back({n / 2 + n / 2, n / 2});
+	edges.push_back({0, n - 1});
+	edges.push_back({n - 1, n - 2});
+	edges.push_back({0, (n - 1) / 3});
+	edges.push_back({(n - 1) / 3, n - 2});
+
 
 
 	file << n << " " << edges.size() << " " << k << " " << x << "\n";
@@ -271,8 +331,8 @@ void generateMaxHeap() {
 	file << flush;
 }
 
-void generateMaxHeap2() {
-    ofstream file = ofstream("max_heap2.in");
+void generateMaxHeap3() {
+    ofstream file = ofstream("max_heap3.in");
 
 	ll n = MAX_N - 1;
 	ll x = 2;
@@ -316,8 +376,8 @@ void generateMaxHeap2() {
 	file << flush;
 }
 
-void generateMaxHeap3() {
-    ofstream file = ofstream("max_heap3.in");
+void generateMaxHeap4() {
+    ofstream file = ofstream("max_heap4.in");
 
 	ll n = 133332 - 1;
 	ll x = 2;

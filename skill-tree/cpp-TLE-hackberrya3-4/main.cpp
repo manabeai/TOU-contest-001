@@ -1,4 +1,4 @@
-// priority_queueが逆順
+// priority_queueの優先順位で頂点とコストが逆になっている + 逆順
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
@@ -116,16 +116,16 @@ int solve() {
 	vector<PLL> dist(n, {INF, -1});
 	priority_queue<PLL> pq;
 	for (auto s : starts) {
-		pq.push({a[s], s});
+		pq.push({s, a[s]});
 		dist[s] = {a[s], -1};
 	}
 	while (!pq.empty()) {
-		auto [cost, v] = pq.top(); pq.pop();
+		auto [v, cost] = pq.top(); pq.pop();
 		if (dist[v].first != cost) continue;
 
 		for (auto nv : g[v]) {
 			if (cost + a[nv] < dist[nv].first) {
-				pq.push({cost + a[nv], nv});
+				pq.push({nv, cost + a[nv]});
 				dist[nv] = {cost + a[nv], v};
 			}
 		}
