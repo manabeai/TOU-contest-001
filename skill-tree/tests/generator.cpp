@@ -51,7 +51,7 @@ const ll MIN_M = 1;
 const ll MAX_Ai = 1e9;
 const ll MIN_Ai = 1;
 void generateRandom(int seq) {
-    ofstream file = ofstream("random_" + to_string(seq) + ".in");
+    ofstream file = ofstream("50-random_" + to_string(seq) + ".in");
 
     ll n = rnd.next(MIN_N, MAX_N);
     ll k = rnd.next(1LL, n);
@@ -119,7 +119,7 @@ void generateRandom(int seq) {
 }
 
 void generateHand1() {
-    ofstream file = ofstream("hand1.in");
+    ofstream file = ofstream("99-hand1.in");
 
     ll n = 1e5;
     vector<ll> vertex(n);
@@ -157,7 +157,7 @@ void generateHand1() {
     cout << flush;
 }
 void generateHand2() {
-    ofstream file = ofstream("hand2.in");
+    ofstream file = ofstream("99-hand2.in");
 
     ll n = MAX_N;
     ll m = n - 1;
@@ -189,7 +189,7 @@ void generateHand2() {
 }
 
 void generateStarGraph(int seq) {
-    ofstream file = ofstream("star_" + to_string(seq) + ".in");
+    ofstream file = ofstream("99-star_" + to_string(seq) + ".in");
 
     ll n = MAX_N;
     ll m = n - 1;
@@ -235,7 +235,7 @@ void generateStarGraph(int seq) {
 
 
 void generateMaxHeap() {
-    ofstream file = ofstream("max_heap.in");
+    ofstream file = ofstream("99-max_heap.in");
 
 	ll n = 150000 + 1;
 	assert(n % 3 == 1);
@@ -284,7 +284,7 @@ void generateMaxHeap() {
 	file << flush;
 }
 void generateMaxHeap2() {
-    ofstream file = ofstream("max_heap2.in");
+    ofstream file = ofstream("99-max_heap2.in");
 
 	ll n = 150000 + 1;
 	assert(n % 3 == 1);
@@ -338,7 +338,7 @@ void generateMaxHeap2() {
 }
 
 void generateMaxHeap3() {
-    ofstream file = ofstream("max_heap3.in");
+    ofstream file = ofstream("99-max_heap3.in");
 
 	ll n = 133332 - 1;
 	ll x = 2;
@@ -384,7 +384,7 @@ void generateMaxHeap3() {
 }
 
 void generateAddAfterPop(int cnt) {
-	ofstream file = ofstream("add_after_pop" + to_string(cnt) + ".in");
+	ofstream file = ofstream("99-add_after_pop" + to_string(cnt) + ".in");
 
 	ll DEF_N = 133332;
 	// ll DEF_N = 24;
@@ -439,7 +439,7 @@ void generateAddAfterPop(int cnt) {
 }
 
 void generateSameCost() {
-	ofstream file = ofstream("same_cost.in");
+	ofstream file = ofstream("99-same_cost.in");
 
 	ll n = 150000 + 1;
 	assert((n - 1) % 3 == 0);
