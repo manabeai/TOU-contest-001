@@ -107,42 +107,64 @@ int solve() {
 	rep(i, m) {
 		ll u, v; cin >> u >> v;
 		--u, --v;
-		g[u].push_back(v);
+		g[v].push_back(u);
 	}
 
-	
 
-	vector<PLL> dist(n, {INF, -1});
-	priority_queue<PLL, vector<PLL>, greater<PLL>> pq;
-	for (auto s : starts) {
-		pq.push({a[s], s});
-		dist[s] = {a[s], -1};
-	}
-	while (!pq.empty()) {
-		auto [cost, v] = pq.top(); pq.pop();
-		if (dist[v].first < cost) continue;
 
-		for (auto nv : g[v]) {
-			if (cost + a[nv] < dist[nv].first) {
-				pq.push({cost + a[nv], nv});
-				dist[nv] = {cost + a[nv], v};
+	// 最小コスト、最適な前の頂点
+	vector<pair<ll, ll>> dp(n, {INF, -1});
+	auto dfs = [&](auto self, ll u) -> ll {
+		if (dp[u].first != INF) {
+			return dp[u].first;
+		}
+		if (starts.count(u)) {
+			dp[u] = {a[u], -1};
+			return dp[u].first;
+		}
+
+		ll minCost = INF;
+		ll best = -1;
+		for (ll v : g[u]) {
+			ll cost = self(self, v);
+
+			if (cost < minCost) {
+				minCost = cost;
+				best = v;
+			}
+			else if (cost == minCost && v < best) {
+				minCost = cost;
+				best = v;
 			}
 		}
-	}
 
-	if (dist[x].first == INF) {
+		if (minCost == INF) {
+			return INF;
+		}
+
+		dp[u] = {minCost + a[u], best};
+		return dp[u].first;
+	};
+
+	dfs(dfs, x);
+
+	if (dp[x].first == INF) {
 		cout << -1 << endl;
 		return 0;
 	}
 
-	vll ans;
-	for (ll i = x; i != -1; i = dist[i].second) {
-		ans.push_back(i + 1);
+	stack<ll> ans;
+	for (ll u = x; u != -1; u = dp[u].second) {
+		ans.push(u);
 	}
-	reverse(all(ans));
 
-	cout << ans.size() << "\n";
-	cout << ans << endl;
+	cout << ans.size() << endl;
+	while (!ans.empty()) {
+		cout << ans.top() + 1;
+		if (ans.size() > 1) cout << " ";
+		ans.pop();
+	}
+	cout << endl;
 
 	return 0;
 }
