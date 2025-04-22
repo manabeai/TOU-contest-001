@@ -49,7 +49,7 @@ process() {
 	# ルートディレクトリの各サブディレクトリを処理
 	for dir in ./*/; do
 	  # tests ディレクトリが存在し、ディレクトリ名がrimeではない場合
-	  if [ -d "${dir}tests" ] && [ "$(basename "$dir")" != "rime" ]; then
+	  if [ -d "${dir}tests" ] && [ "$(basename "$dir")" != "rime" ] && [ "$(basename "$dir")" != "sample-problem" ]; then
 		echo -e "\e[32mProcessing: ${dir}\e[0m"
 	
 		# 対象ディレクトリに移動してフォーマット実行
