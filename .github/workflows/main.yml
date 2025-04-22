@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - fix-history
   pull_request:
     branches:
       - main
@@ -118,7 +117,14 @@ jobs:
                 cp "$file" "../generated/$(basename "$dir")/"
               fi
             done
-            cd ..
+            cd tests
+            for file in "${files[@]}"; do
+              if [ -f "$file" ]; then
+                echo "Moving $file to ../../generated/$(basename "$dir")"
+                cp "$file" "../../generated/$(basename "$dir")/"
+              fi
+            done
+            cd ../..
           fi
         done
         EOF
