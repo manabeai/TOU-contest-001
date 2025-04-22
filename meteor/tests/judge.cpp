@@ -16,8 +16,8 @@ int main(int argc, char * argv[])
     while (!ans.seekEof()) 
     {
         n++;
-        j = ans.readString();
-        p = ouf.readString();
+        j = ans.readDouble();
+        p = ouf.readDouble();
         if (!doubleCompare(j, p, EPS))
         {
 	  printf("wrong answer\n");
