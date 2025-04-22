@@ -8,3 +8,5 @@ Thumbs.db
 *.out
 target
 node_modules
+
+.generated/
