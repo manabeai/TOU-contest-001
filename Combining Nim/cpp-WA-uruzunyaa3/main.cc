@@ -145,7 +145,6 @@ int main(){
 		xr^=a[i];
 		if(xr==0){
 			xr^=a[i];
-			mx=max(mx,a[i]);
 			continue;
 		}
 		//最上位の1となっているbit

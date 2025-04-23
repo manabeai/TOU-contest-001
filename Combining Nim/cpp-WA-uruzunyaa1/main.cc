@@ -69,7 +69,7 @@ int main(){
 	//先手必勝の場合(奇数山)
 
 	//A_iのビット数の最大値、本番は20にする。デバッグ用
-	ll m=20;
+	ll m=21;
 
 	//bitをpopcount毎に分類しておく。
 	vector<vvl> bit(m);
@@ -148,6 +148,7 @@ int main(){
 			mx=max(mx,a[i]);
 			continue;
 		}
+		
 		//最上位の1となっているbit
 		ll top=0;
 		for(ll j=m-1;j>=0;j--){
@@ -159,8 +160,8 @@ int main(){
 
 		//最適な相方の関係ある部分のbit列を取り出す
 		ll companion;
-		if(dp[top][xr-(1<<top)].first.first!=i)companion=dp[top][xr-(1<<top)].first.second;
-		else companion=dp[top][xr-(1<<top)].second.second;
+		if(dp[m-1][xr-(1<<top)].first.first!=i)companion=dp[m-1][xr-(1<<top)].first.second;
+		else companion=dp[m-1][xr-(1<<top)].second.second;
 
 		//1が立っているbitは取る事で減り、立っていないbitは増やすため、全体とのxorを引く
 		mx=max(mx,a[i]+companion-(xr^companion));
