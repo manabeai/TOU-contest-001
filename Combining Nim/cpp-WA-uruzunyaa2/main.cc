@@ -111,7 +111,7 @@ int main(){
 		//cout<<"i="<<i<<endl;
 		//vvdbg(subdp[i]);
 
-		//0の値を単位元としても、最適性を損なわない(はず)
+		//0の値を単位元としても、最適性を損なわない
 		dp[i]=vector<ppl>(1<<i,e);
 
 		//subdpの結果を投入
@@ -160,7 +160,7 @@ int main(){
 		//最適な相方の関係ある部分のbit列を取り出す
 		ll companion;
 		if(dp[top][xr-(1<<top)].first.first!=i)companion=dp[top][xr-(1<<top)].first.second;
-		else companion=dp[top][xr-(1<<top)].second.second;
+		else companion=dp[top][xr-(1<<top)].first.second;
 
 		//1が立っているbitは取る事で減り、立っていないbitは増やすため、全体とのxorを引く
 		mx=max(mx,a[i]+companion-(xr^companion));
