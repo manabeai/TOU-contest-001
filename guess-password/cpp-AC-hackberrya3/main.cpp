@@ -119,29 +119,21 @@ int solve() {
 
 	vector<char> ans(n, 0);
 	rep(i, n) {
-		char l = 'a' - 1, r = 'z' + 1;
-		while (r - l > 2) {
+		char l = 'a', r = 'z';
+		while (r - l > 0) {
 			char m = (l + r) / 2;
 			cout << "? " << i + 1 << " " << m << endl;
 
 			char res;
 			cin >> res;
 			if (res == '#') return 0;
-			if (res == '=') {
-				ans[i] = m;
-				break;
-			}
-			else if (res == '<') {
-				r = m;
-			}
-			else {
-				l = m;
-			}
+			if (res == '=') { ans[i] = m; break; }
+			else if (res == '<') r = m - 1;
+			else l = m + 1;
 		}
 
 		if (ans[i] != 0) continue;
-		if (r - l == 2) ans[i] = l + 1;
-		else ans[i] = l;
+		ans[i] = l;
 	}
 
 	cout << "! ";
