@@ -43,6 +43,7 @@ int WA(){
 
 //非適応的
 int type1(){
+	//初期座標x,yで、向いてる方向がd(11行目依存)
 	ll x,y,d;
 	cin>>x>>y>>d;
 	rep(i,MAX_Q){
@@ -209,6 +210,8 @@ int main(int argc, char *argv[]) {
 
     reactive_start(argv[1]);
 
+	//type1は非適応的
+	//type2は適応的
 	ll type;
 	cin>>type;
 
