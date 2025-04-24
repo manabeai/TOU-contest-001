@@ -1,4 +1,4 @@
 #!/bin/bash
 
-g++ -std=c++17 reactive.cpp -o reactive
+g++ -std=c++17 reactive.cc -o reactive
 chmod 755 reactive
