@@ -16,11 +16,11 @@ int main(int argc, char** argv)
     int n = inf.readInt();
 
 	if(n==1){
-		string ans=ouf.readString();
+		string ans=ouf.readToken("[A-Za-z]+", "s");
 		if(ans=="No")quitf(_ok, "ok");
 		else quitf(_wa, "This tastcase is not buildable");
 	}else{
-		string ans=ouf.readString();
+		string ans=ouf.readToken("[A-Za-z]+", "s");
 		if(ans!="Yes")quitf(_wa, "This tastcase is buildable");
 	}
 	int mx=1;
