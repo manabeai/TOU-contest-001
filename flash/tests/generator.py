@@ -19,6 +19,7 @@ def Generate(N, H, A):
     with open(filename, 'w') as f:
         f.write('{} {}\n'.format(H, N))
         f.write(' '.join(map(str, A)))
+        f.write('\n')
     seq += 1
 
 
