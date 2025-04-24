@@ -117,28 +117,7 @@ int solve() {
 	ll n;
 	cin >> n;
 
-	vector<char> ans(n, 0);
-	rep(i, n) {
-		char l = 'a', r = 'z';
-		while (r - l > 0) {
-			char m = (l + r) / 2;
-			cout << "? " << i + 1 << " " << m << endl;
-
-			char res;
-			cin >> res;
-			if (res == '#') return 0;
-			if (res == '=') { ans[i] = m; break; }
-			else if (res == '<') r = m - 1;
-			else l = m + 1;
-		}
-
-		if (ans[i] != 0) continue;
-		ans[i] = l;
-	}
-
-	cout << "! ";
-	rep(i, n) cout << ans[i];
-	cout << endl;
+	cout << "! thisiswrong" << endl;
 
 	return 0;
 }

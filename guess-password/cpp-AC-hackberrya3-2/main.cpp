@@ -138,7 +138,7 @@ int solve() {
 
 	cout << "! ";
 	rep(i, n) cout << ans[i];
-	cout << endl;
+	cout << "  \r\t " << endl;
 
 	return 0;
 }
