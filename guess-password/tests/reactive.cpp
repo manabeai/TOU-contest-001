@@ -42,19 +42,31 @@ int main(int argc, char *argv[]) {
     write(to_string(n));
 
     int left = MAX_Q;
+    bool found = false;
     string ans;
-    while (left >= 0) {
+    while (left >= 0 && !found) {
         string query = read();
-        if (regex_match(query, regex("^!\\s+[a-z]+\\s+$"))) {
+        if (regex_match(query, regex("^!\\s+[a-z]*\\s+$"))) {
+            found = true;
+
 			char tmp[251];
 			sscanf(query.c_str(), "! %250s", &tmp[0]);
 			ans = tmp;
-            break;
+
+			while (ans.size() != 0 && (ans.back() == '\n' || ans.back() == '\r' || ans.back() == '\t' || ans.back() == ' '))
+				ans.pop_back();
+
+			if (found && ans == s) {
+				cout << "AC" << endl;
+				reactive_end();
+				return 0;
+			}
+			else {
+				return wa("Expected: " + s + "\nReceived: " + ans);
+			}
         }
 
-        if (left == 0) {
-			return wa("Query limit exceeded");
-		}
+        if (left == 0) { break; }
 
         --left;
         if (!regex_match(query, regex("^\\?\\s+\\d+\\s+[a-z]\\s+$"))) {
@@ -75,14 +87,5 @@ int main(int argc, char *argv[]) {
         else { write(">"); }
     }
 
-    while (ans.size() != 0 && (ans.back() == '\n' || ans.back() == '\r' || ans.back() == '\t' || ans.back() == ' '))
-        ans.pop_back();
-
-    if (ans == s) {
-        cout << "AC" << endl;
-		reactive_end();
-		return 0;
-    }
-
-	return wa("Expected: " + s + "\nReceived: " + ans);
+	return wa("Query limit exceeded");
 }
