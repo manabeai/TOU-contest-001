@@ -31,6 +31,9 @@ string read() {
 	return s;
 }
 
+regex query_regex("^\\?\\s+\\d+\\s+[a-z]\\s+$");
+regex answer_regex("^!\\s+[a-z]*\\s+$");
+
 int main(int argc, char *argv[]) {
     reactive_start(argv[1]);
 
@@ -46,7 +49,7 @@ int main(int argc, char *argv[]) {
     string ans;
     while (left >= 0 && !found) {
         string query = read();
-        if (regex_match(query, regex("^!\\s+[a-z]*\\s+$"))) {
+        if (regex_match(query, answer_regex)) {
             found = true;
 
 			char tmp[251];
@@ -69,7 +72,7 @@ int main(int argc, char *argv[]) {
         if (left == 0) { break; }
 
         --left;
-        if (!regex_match(query, regex("^\\?\\s+\\d+\\s+[a-z]\\s+$"))) {
+        if (!regex_match(query, query_regex)) {
             return wa("Invalid query: " + query);
         }
 
